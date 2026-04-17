@@ -6,7 +6,6 @@ TagManager:
   tags:
   - Ground
   - Catchable
-  - Rocket
   layers:
   - Default
   - TransparentFX
