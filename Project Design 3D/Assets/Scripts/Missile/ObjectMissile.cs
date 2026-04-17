@@ -1,4 +1,7 @@
+using System.Collections;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ObjectMissile : MonoBehaviour
 {
@@ -25,6 +28,18 @@ public class ObjectMissile : MonoBehaviour
         // Pesan peringatan di Console
         Debug.LogWarning("Player terkena missile");
 
+        // Kurangi health player
+        PlayerHealthSystem.Health--;
+        if (PlayerHealthSystem.Health <= 0)
+        {
+            Application.Quit();// Keluar dari aplikasi saat health mencapai 0
+            EditorApplication.isPlaying = false; // Hanya untuk editor, agar tidak keluar dari aplikasi saat testing
+        }
+        else
+        {
+            StartCoroutine(TerkenaDMG());
+        }
+
         // Hancurkan objek missile setelah mengenai player
         Destroy(gameObject);
     }
@@ -33,5 +48,13 @@ public class ObjectMissile : MonoBehaviour
     {
         // Missile hancur saat menyentuh tanah agar tidak menumpuk di scene
         Destroy(gameObject);
+    }
+
+    // Coroutine untuk memberikan efek kebal sementara pada player setelah terkena damage
+    IEnumerator TerkenaDMG()
+    {
+        Physics.IgnoreLayerCollision(6, 8);
+        yield return new WaitForSeconds(3);
+        Physics.IgnoreLayerCollision(6, 8, false);
     }
 }
