@@ -928,6 +928,55 @@ MonoBehaviour:
   m_Spacing: {x: 20, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!1 &659301289
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 659301291}
+  - component: {fileID: 659301290}
+  m_Layer: 0
+  m_Name: DangerSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &659301290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 659301289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9cebcd165f1c7d45810b24f31f14ab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  missilePrefab: {fileID: 3197149161019064539, guid: 8c5de2ab93e2a114d9bff4a0d2cded40, type: 3}
+  bulletHellPrefab: {fileID: 5451035046336854393, guid: 955231a6b1956364b9bcb4e7e1bd7da5, type: 3}
+  swapLimit: 12
+  spawnRangeX: 8
+  spawnPosY: 10
+--- !u!4 &659301291
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 659301289}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2039691778}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &665511323
 GameObject:
   m_ObjectHideFlags: 0
@@ -2230,6 +2279,53 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1413217994}
   m_SourcePrefab: {fileID: 100100000, guid: 5fbddfcd98185cc4383f64b2d22c3ff8, type: 3}
+--- !u!1 &1851705649
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1851705651}
+  - component: {fileID: 1851705650}
+  m_Layer: 0
+  m_Name: BatterySpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1851705650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851705649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82b09ca9506e8c14683140abfea6c575, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  batteryPrefab: {fileID: 9145834548191125763, guid: 8e683405699c25647892dfed7e74461f, type: 3}
+  spawnRangeX: 8
+  spawnPosY: 10
+--- !u!4 &1851705651
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851705649}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2039691778}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1875923643
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2302,6 +2398,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2039691778}
   - component: {fileID: 2039691779}
+  - component: {fileID: 2039691780}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2321,7 +2418,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 659301291}
+  - {fileID: 1851705651}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2039691779
@@ -2336,12 +2435,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15a644a4aa6dda447995ddd9730f80a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MissileSpawner
-  batteryPrefab: {fileID: 9145834548191125763, guid: 8e683405699c25647892dfed7e74461f, type: 3}
-  missilePrefab: {fileID: 3197149161019064539, guid: 8c5de2ab93e2a114d9bff4a0d2cded40, type: 3}
-  batterySpawnChance: 50
-  missileSpawnInterval: 2
-  spawnRangeX: 8
-  spawnPosY: 12
+  batterySpawner: {fileID: 1851705650}
+  dangerSpawner: {fileID: 659301290}
+  dangerInterval: 3.5
+--- !u!114 &2039691780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2039691776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59d272da4a59c1842a115311850a7033, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 5070642927147147935, guid: 918a449216c0c5545989ead42ac03ec4, type: 3}
+  poolSize: 50
 --- !u!1 &2056295255
 GameObject:
   m_ObjectHideFlags: 0
