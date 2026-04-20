@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
+using UnityEngine.UI;
 
 public class PowerReceiver : MonoBehaviour
 {
@@ -10,11 +12,17 @@ public class PowerReceiver : MonoBehaviour
     [Header("Pengaturan")]
     [SerializeField] private float powerPerBattery = 90f;
 
+    public TextMeshProUGUI scoreText; // Referensi ke TextMeshProUGUI untuk menampilkan skor
+    public int score = 0;// Variabel untuk menyimpan skor
+
     private bool playerInRange = false;
     private InventoryManager playerInventory;
 
     void Update()
     {
+        // Update skor di UI
+        scoreText.text = "Score: " + score;
+
         if (Keyboard.current == null) return;
 
         // Jika player di zona dan menekan tombol setor
@@ -36,6 +44,8 @@ public class PowerReceiver : MonoBehaviour
 
             // Kirim daya ke Storage Utama
             mainStorage.AddPower(totalRecovery);
+
+            score += 1000; // Tambahkan skor berdasarkan jumlah baterai yang disetor
 
             // Kosongkan tas player
             playerInventory.currentBattery = 0;

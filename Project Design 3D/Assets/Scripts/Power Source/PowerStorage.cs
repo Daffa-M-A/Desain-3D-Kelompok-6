@@ -8,7 +8,7 @@ public class PowerStorage : MonoBehaviour
     [SerializeField] private float maxPower = 2000f;
 
     [Header("Rates")]
-    [SerializeField] private float drainRate = 45f;
+    [SerializeField] private float drainRate = 30f;
 
     private bool isGameOver = false;
 
