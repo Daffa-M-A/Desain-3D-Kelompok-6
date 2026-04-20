@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 public class PowerStorage : MonoBehaviour
@@ -37,6 +38,8 @@ public class PowerStorage : MonoBehaviour
     private void TriggerGameOver()
     {
         isGameOver = true;
+        Application.Quit();// Keluar dari aplikasi saat health mencapai 0
+        EditorApplication.isPlaying = false; // Hanya untuk editor, agar tidak keluar dari aplikasi saat testing
         Debug.LogError("GAME OVER! Power Source kehabisan daya.");
     }
 
