@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8120421976798987342}
   - component: {fileID: 9014814590139168752}
   m_Layer: 0
-  m_Name: BulletSpawner
+  m_Name: BulletSpawner_Lvl2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,6 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a40572e81b1527b4c8badc7a7c473534, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPattern: 1
   bulletSpeed: 8
-  numberOfBullets: 10
+  gridSpacingX: 1.5
+  gridSpacingY: 1.5
   spreadAngle: 90
+  timeBetweenRows: 0.2

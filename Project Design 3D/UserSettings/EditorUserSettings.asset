@@ -5,11 +5,20 @@ EditorUserSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 4
   m_ConfigSettings:
+    QuickInstaller_com.unity.purchasing_installRecorded:
+      value: 2550581500
+      flags: 0
+    QuickInstaller_com.unity.services.levelplay_installRecorded:
+      value: 2550581500
+      flags: 0
     RecentlyUsedSceneGuid-0:
       value: 01010c0455005d0809565d7016760c44424f4b7329782032757e1b64b6b16469
       flags: 0
     RecentlyUsedSceneGuid-1:
       value: 5a08575f5207595a0f5d59741173094444164f7d7d2a23317c7a4465bbe1646d
+      flags: 0
+    RecentlyUsedSceneGuid-2:
+      value: 5002560007540f0b5f0f0a7216255944434f197a7e7f7334757a1937b2b93539
       flags: 0
     UnityEditor.ShaderGraph.Blackboard:
       value: 18135939215a0a5004000b0e15254b524c1119263f2d6a722016393ce1eb3d36e5d339f9a560393d3511ea7046333e09f7181d02f50a06241708ee0b05bd4a435f9548954a9b4f499a4e4999954c83b69994d9d5f0e4f5d1c4d0aee6f5fcc1fef3e2a0efe8f2a98ef9fcade5ff969290909ae6919a949c8bf8dfeee0b7c9d79183cdc7ce9bdd898280c3f9d4fbc9f1fdc7f9f6c2c7f4c1f3d1dc85f03ae0f639283e31e3e5eeefd4e5eb39d123299995
