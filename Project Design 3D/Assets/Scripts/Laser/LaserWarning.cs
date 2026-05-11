@@ -1,21 +1,26 @@
 using UnityEngine;
 using System.Collections;
 
-public class LaserTelegraph : MonoBehaviour
+public class LaserWarning : MonoBehaviour
 {
     [Header("Referensi")]
-    [Tooltip("Masukkan Prefab Laser Asli ke sini")]
-    public GameObject realLaserPrefab;
+    public GameObject objectLaserPrefab;
 
     [Header("Pengaturan Waktu")]
-    public float warningDuration = 1.0f; 
-    public float blinkInterval = 0.1f;   
+    public float warningDuration = 1.0f;
+    public float blinkInterval = 0.1f;
+
+    [Header("Pengaturan Visual")]
+    public bool useMeshBlink = true;
 
     private MeshRenderer meshRenderer;
 
     void Start()
     {
         meshRenderer = GetComponent<MeshRenderer>();
+
+        // VFX akan otomatis menyala di sini karena fitur "Play On Awake" bawaan Unity
+
         StartCoroutine(TelegraphRoutine());
     }
 
@@ -26,18 +31,23 @@ public class LaserTelegraph : MonoBehaviour
 
         while (timer < warningDuration)
         {
-            isVisible = !isVisible; 
-            if (meshRenderer != null) meshRenderer.enabled = isVisible;
+            if (useMeshBlink && meshRenderer != null)
+            {
+                isVisible = !isVisible;
+                meshRenderer.enabled = isVisible;
+            }
 
             yield return new WaitForSeconds(blinkInterval);
             timer += blinkInterval;
         }
 
-        if (realLaserPrefab != null)
+        // Munculkan Laser Asli
+        if (objectLaserPrefab != null)
         {
-            Instantiate(realLaserPrefab, transform.position, transform.rotation);
+            Instantiate(objectLaserPrefab, transform.position, transform.rotation);
         }
 
+        // Saat objek ini hancur, anak-anaknya (termasuk VFX Peringatan) akan ikut hancur otomatis
         Destroy(gameObject);
     }
 }

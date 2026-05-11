@@ -12,8 +12,9 @@ public class DangerSpawner : MonoBehaviour
     [Header("Referensi Prefab")]
     public GameObject missilePrefab;
     public GameObject bulletHellPrefabLvl1;
-    public GameObject bulletHellPrefabLvl2; 
-    public GameObject laserPrefab;
+    public GameObject bulletHellPrefabLvl2;
+    public GameObject laserPrefabVertical;
+    public GameObject laserPrefabHorizontal;
 
     [Header("Pengaturan Siklus")]
     public int swapLimit = 12;
@@ -82,29 +83,41 @@ public class DangerSpawner : MonoBehaviour
 
     private void SpawnLaser()
     {
-        if (laserPrefab == null) return;
-
-        float currentHorizontalChance = (currentLevel >= 2) ? 0.5f : 0f;
-
-        bool isHorizontal = Random.value <= currentHorizontalChance;
+        // LOGIKA LEVEL
+        bool isHorizontal = false;
+        if (currentLevel >= 2)
+        {
+            isHorizontal = Random.value > 0.5f;
+        }
 
         Vector3 spawnPos = Vector3.zero;
-        Quaternion spawnRot = Quaternion.identity;
 
         if (!isHorizontal)
         {
+            // --- MODE VERTIKAL ---
+            if (laserPrefabVertical == null) return; // Cegah error jika prefab belum diisi
+
             float randomX = Random.Range(-spawnRangeX, spawnRangeX);
             spawnPos = new Vector3(randomX, screenCenterY, 0f);
-            spawnRot = Quaternion.Euler(0, 0, 90f);
+
+            // Spawn prefab khusus Vertikal dengan rotasi bawaan prefab-nya
+            Instantiate(laserPrefabVertical, spawnPos, laserPrefabVertical.transform.rotation);
+
+            Debug.Log($"Level {currentLevel}: Laser VERTIKAL (VFX Khusus) di X: {randomX}");
         }
         else
         {
-            float randomY = Random.Range(1f, laserRangeY);
-            spawnPos = new Vector3(screenCenterX, randomY, 0f);
-            spawnRot = Quaternion.Euler(0, 0, 0);
-        }
+            // --- MODE HORIZONTAL ---
+            if (laserPrefabHorizontal == null) return; // Cegah error jika prefab belum diisi
 
-        Instantiate(laserPrefab, spawnPos, spawnRot);
+            float randomY = Random.Range(minLaserY, laserRangeY);
+            spawnPos = new Vector3(screenCenterX, randomY, 0f);
+
+            // Spawn prefab khusus Horizontal dengan rotasi bawaan prefab-nya
+            Instantiate(laserPrefabHorizontal, spawnPos, laserPrefabHorizontal.transform.rotation);
+
+            Debug.Log($"Level {currentLevel}: Laser HORIZONTAL (VFX Khusus) di Y: {randomY}");
+        }
     }
 
     private void SwitchToRandomMode()

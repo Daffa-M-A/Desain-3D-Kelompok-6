@@ -67,9 +67,9 @@ MonoBehaviour:
   uiBounds:
     serializedVersion: 2
     x: 992
-    y: -719
-    width: 3575
-    height: 2533
+    y: -718
+    width: 3574
+    height: 2495
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -396,7 +396,7 @@ MonoBehaviour:
   m_Children:
   - {fileID: 8926484042661616724}
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 0
+  m_UICollapsed: 1
   m_UISuperCollapsed: 0
   m_MasterSlot: {fileID: 8926484042661616723}
   m_MasterData:
@@ -405,7 +405,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.DirectionType, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"direction":{"x":0.0,"y":0.0,"z":1.0}}'
+      m_SerializableObject: '{"direction":{"x":1.0,"y":0.0,"z":0.0}}'
     m_Space: 0
   m_Property:
     name: Up
@@ -433,7 +433,7 @@ MonoBehaviour:
   - {fileID: 8926484042661616726}
   - {fileID: 8926484042661616727}
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 0
+  m_UICollapsed: 1
   m_UISuperCollapsed: 0
   m_MasterSlot: {fileID: 8926484042661616723}
   m_MasterData:
@@ -735,7 +735,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":0.8999999761581421,"y":2.0,"z":1.0}'
+      m_SerializableObject: '{"x":0.8999999761581421,"y":7.0,"z":1.0}'
     m_Space: -1
   m_Property:
     name: _Scale
@@ -2719,7 +2719,7 @@ MonoBehaviour:
   m_Children:
   - {fileID: 8926484042661616792}
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 0
+  m_UICollapsed: 1
   m_UISuperCollapsed: 0
   m_MasterSlot: {fileID: 8926484042661616791}
   m_MasterData:
@@ -2728,7 +2728,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.DirectionType, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"direction":{"x":0.0,"y":0.0,"z":1.0}}'
+      m_SerializableObject: '{"direction":{"x":1.0,"y":0.0,"z":0.0}}'
     m_Space: 0
   m_Property:
     name: Up
@@ -2756,7 +2756,7 @@ MonoBehaviour:
   - {fileID: 8926484042661616794}
   - {fileID: 8926484042661616795}
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 0
+  m_UICollapsed: 1
   m_UISuperCollapsed: 0
   m_MasterSlot: {fileID: 8926484042661616791}
   m_MasterData:
@@ -3058,7 +3058,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":0.6000000238418579,"y":2.0,"z":1.0}'
+      m_SerializableObject: '{"x":0.6000000238418579,"y":7.0,"z":1.0}'
     m_Space: -1
   m_Property:
     name: _Scale
@@ -4150,7 +4150,7 @@ MonoBehaviour:
   m_Children:
   - {fileID: 8926484042661616833}
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 0
+  m_UICollapsed: 1
   m_UISuperCollapsed: 0
   m_MasterSlot: {fileID: 8926484042661616832}
   m_MasterData:
@@ -4159,7 +4159,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.DirectionType, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"direction":{"x":0.0,"y":0.0,"z":1.0}}'
+      m_SerializableObject: '{"direction":{"x":1.0,"y":0.0,"z":0.0}}'
     m_Space: 0
   m_Property:
     name: Up
@@ -4187,7 +4187,7 @@ MonoBehaviour:
   - {fileID: 8926484042661616835}
   - {fileID: 8926484042661616836}
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 0
+  m_UICollapsed: 1
   m_UISuperCollapsed: 0
   m_MasterSlot: {fileID: 8926484042661616832}
   m_MasterData:
@@ -4489,7 +4489,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":0.8999999761581421,"y":2.0,"z":1.0}'
+      m_SerializableObject: '{"x":0.8999999761581421,"y":7.0,"z":1.0}'
     m_Space: -1
   m_Property:
     name: _Scale
@@ -5592,7 +5592,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.DirectionType, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"direction":{"x":0.0,"y":0.0,"z":1.0}}'
+      m_SerializableObject: '{"direction":{"x":1.0,"y":0.0,"z":0.0}}'
     m_Space: 0
   m_Property:
     name: Up
@@ -5922,7 +5922,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":1.0,"y":2.0,"z":1.0}'
+      m_SerializableObject: '{"x":1.0,"y":7.0,"z":1.0}'
     m_Space: -1
   m_Property:
     name: _Scale
@@ -7159,7 +7159,7 @@ MonoBehaviour:
   m_Children:
   - {fileID: 8926484042661616922}
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 1
+  m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_MasterSlot: {fileID: 8926484042661616921}
   m_MasterData:
@@ -7168,7 +7168,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.Vector, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"vector":{"x":-0.5,"y":-0.5,"z":20.0}}'
+      m_SerializableObject: '{"vector":{"x":20.0,"y":-0.5,"z":-0.5}}'
     m_Space: 0
   m_Property:
     name: A
@@ -7196,7 +7196,7 @@ MonoBehaviour:
   - {fileID: 8926484042661616924}
   - {fileID: 8926484042661616925}
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 1
+  m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_MasterSlot: {fileID: 8926484042661616921}
   m_MasterData:
@@ -7338,7 +7338,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.Vector, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"vector":{"x":0.5,"y":0.5,"z":40.0}}'
+      m_SerializableObject: '{"vector":{"x":40.0,"y":0.5,"z":0.5}}'
     m_Space: 0
   m_Property:
     name: B

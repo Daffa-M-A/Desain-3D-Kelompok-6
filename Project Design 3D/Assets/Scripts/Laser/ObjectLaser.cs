@@ -2,12 +2,14 @@ using UnityEngine;
 
 public class ObjectLaser : MonoBehaviour
 {
-    [Tooltip("Berapa lama laser ini aktif sebelum menghilang")]
+    [Header("Pengaturan Waktu")]
     public float activeDuration = 0.5f;
 
     void Start()
     {
-        // Fitur Unity: Menghancurkan objek ini otomatis setelah sekian detik
+        // VFX Laser utama otomatis menyala di sini (Play On Awake)
+
+        // Hancurkan laser setelah durasinya habis
         Destroy(gameObject, activeDuration);
     }
 
@@ -16,7 +18,7 @@ public class ObjectLaser : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.LogWarning("Terkena Laser Asli! Nyawa Berkurang!");
-            // Panggil fungsi kurangi nyawa/power di sini
+            other.gameObject.SetActive(false);
         }
     }
 }
