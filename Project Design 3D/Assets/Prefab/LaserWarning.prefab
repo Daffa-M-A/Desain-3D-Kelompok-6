@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 2577987921143825952}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 30, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49275897a2e7dee479e52d147ee77f8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  verticalLaserPrefab: {fileID: 9029855886463632424, guid: a12a2163f2f1a424bae63674cfd32ec1, type: 3}
-  horizontalLaserPrefab: {fileID: 0}
+  objectLaserPrefab: {fileID: 0}
   warningDuration: 1
   blinkInterval: 0.2
+  useMeshBlink: 1

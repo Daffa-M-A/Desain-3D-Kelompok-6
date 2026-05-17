@@ -1,12 +1,23 @@
 using UnityEngine;
+using System.Collections; 
 
 public class ObjectBattery : MonoBehaviour
 {
     private bool isOnGround = false;
 
+    private void OnEnable()
+    {
+        isOnGround = false;
+
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.isKinematic = false;
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        // 1. Jika diambil Player
         if (other.CompareTag("Player"))
         {
             InventoryManager inventory = other.GetComponent<InventoryManager>();
@@ -17,18 +28,14 @@ public class ObjectBattery : MonoBehaviour
 
                 if (isCollected)
                 {
-                    Destroy(gameObject);
+                    gameObject.SetActive(false);
                 }
             }
         }
 
-        // 2. Jika menyentuh Tanah
         else if (other.CompareTag("Ground") && !isOnGround)
         {
             isOnGround = true;
-
-            // Hancurkan dalam 3 detik
-            Destroy(gameObject, 3f);
 
             Rigidbody rb = GetComponent<Rigidbody>();
             if (rb != null)
@@ -36,29 +43,28 @@ public class ObjectBattery : MonoBehaviour
                 rb.linearVelocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
 
-                // --- PERBAIKAN POSISI YANG AMAN ---
-
                 Collider myCollider = GetComponent<Collider>();
                 Collider groundCollider = other;
 
-                // Mencari titik paling atas dari tanah (Lantai)
                 float groundTopEdge = groundCollider.bounds.max.y;
-
-                // Mencari titik paling bawah dari Battery Box
                 float batteryBottomEdge = myCollider.bounds.min.y;
-
-                // Menghitung seberapa jauh baterai tenggelam
                 float overlapDistance = groundTopEdge - batteryBottomEdge;
 
-                // Menarik baterai ke atas tepat sebesar jarak tenggelamnya
                 if (overlapDistance > 0)
                 {
                     transform.position = new Vector3(transform.position.x, transform.position.y + overlapDistance, transform.position.z);
                 }
 
-                // Baru kita bekukan agar gravitasi mati
                 rb.isKinematic = true;
             }
+
+            StartCoroutine(DeactivateAfterDelay(3f));
         }
+    }
+
+    private IEnumerator DeactivateAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        gameObject.SetActive(false);
     }
 }

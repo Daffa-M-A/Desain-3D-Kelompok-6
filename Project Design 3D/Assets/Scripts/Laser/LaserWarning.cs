@@ -3,8 +3,8 @@ using System.Collections;
 
 public class LaserWarning : MonoBehaviour
 {
-    [Header("Referensi")]
-    public GameObject objectLaserPrefab;
+    [Header("Referensi Pool")]
+    public string realLaserTag;
 
     [Header("Pengaturan Waktu")]
     public float warningDuration = 1.0f;
@@ -15,12 +15,13 @@ public class LaserWarning : MonoBehaviour
 
     private MeshRenderer meshRenderer;
 
-    void Start()
+    void Awake()
     {
         meshRenderer = GetComponent<MeshRenderer>();
+    }
 
-        // VFX akan otomatis menyala di sini karena fitur "Play On Awake" bawaan Unity
-
+    void OnEnable()
+    {
         StartCoroutine(TelegraphRoutine());
     }
 
@@ -41,13 +42,8 @@ public class LaserWarning : MonoBehaviour
             timer += blinkInterval;
         }
 
-        // Munculkan Laser Asli
-        if (objectLaserPrefab != null)
-        {
-            Instantiate(objectLaserPrefab, transform.position, transform.rotation);
-        }
+        PoolManager.Instance.SpawnFromPool(realLaserTag, transform.position, transform.rotation);
 
-        // Saat objek ini hancur, anak-anaknya (termasuk VFX Peringatan) akan ikut hancur otomatis
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

@@ -9,12 +9,14 @@ public class DangerSpawner : MonoBehaviour
     [Tooltip("Ubah ini menjadi 2 untuk menguji kesulitan Level 2")]
     [Range(1, 2)] public int currentLevel = 1;
 
-    [Header("Referensi Prefab")]
-    public GameObject missilePrefab;
+    [Header("Referensi Pool")]
+    public string missileTag = "Missile";
+    public string laserVerticalTag = "LaserWarningVertical";
+    public string laserHorizontalTag = "LaserWarningHorizontal";
+
+    [Header("Referensi Bullet Hell")]
     public GameObject bulletHellPrefabLvl1;
     public GameObject bulletHellPrefabLvl2;
-    public GameObject laserPrefabVertical;
-    public GameObject laserPrefabHorizontal;
 
     [Header("Pengaturan Siklus")]
     public int swapLimit = 12;
@@ -55,18 +57,15 @@ public class DangerSpawner : MonoBehaviour
 
     private void SpawnMissile()
     {
-        if (missilePrefab == null) return;
-
         int missileCount = (currentLevel >= 2) ? 2 : 1;
 
         for (int i = 0; i < missileCount; i++)
         {
             float randomX = Random.Range(-spawnRangeX, spawnRangeX);
             Vector3 spawnPos = new Vector3(randomX, spawnPosY, 0f);
-            Instantiate(missilePrefab, spawnPos, Quaternion.identity);
-        }
 
-        Debug.Log($"Spawn {missileCount} Missile (Level {currentLevel})");
+            PoolManager.Instance.SpawnFromPool(missileTag, spawnPos, Quaternion.identity);
+        }
     }
 
     private void SpawnBulletHell()
@@ -77,13 +76,13 @@ public class DangerSpawner : MonoBehaviour
         {
             float randomX = Random.Range(-spawnRangeX, spawnRangeX);
             Vector3 spawnPos = new Vector3(randomX, spawnPosY, 0f);
+
             Instantiate(prefabToSpawn, spawnPos, Quaternion.identity);
         }
     }
 
     private void SpawnLaser()
     {
-        // LOGIKA LEVEL
         bool isHorizontal = false;
         if (currentLevel >= 2)
         {
@@ -94,29 +93,17 @@ public class DangerSpawner : MonoBehaviour
 
         if (!isHorizontal)
         {
-            // --- MODE VERTIKAL ---
-            if (laserPrefabVertical == null) return; // Cegah error jika prefab belum diisi
-
             float randomX = Random.Range(-spawnRangeX, spawnRangeX);
             spawnPos = new Vector3(randomX, screenCenterY, 0f);
 
-            // Spawn prefab khusus Vertikal dengan rotasi bawaan prefab-nya
-            Instantiate(laserPrefabVertical, spawnPos, laserPrefabVertical.transform.rotation);
-
-            Debug.Log($"Level {currentLevel}: Laser VERTIKAL (VFX Khusus) di X: {randomX}");
+            PoolManager.Instance.SpawnFromPool(laserVerticalTag, spawnPos, Quaternion.identity);
         }
         else
         {
-            // --- MODE HORIZONTAL ---
-            if (laserPrefabHorizontal == null) return; // Cegah error jika prefab belum diisi
-
             float randomY = Random.Range(minLaserY, laserRangeY);
             spawnPos = new Vector3(screenCenterX, randomY, 0f);
 
-            // Spawn prefab khusus Horizontal dengan rotasi bawaan prefab-nya
-            Instantiate(laserPrefabHorizontal, spawnPos, laserPrefabHorizontal.transform.rotation);
-
-            Debug.Log($"Level {currentLevel}: Laser HORIZONTAL (VFX Khusus) di Y: {randomY}");
+            PoolManager.Instance.SpawnFromPool(laserHorizontalTag, spawnPos, Quaternion.identity);
         }
     }
 

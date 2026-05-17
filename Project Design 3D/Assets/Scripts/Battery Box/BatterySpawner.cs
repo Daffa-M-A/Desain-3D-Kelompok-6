@@ -2,41 +2,41 @@ using UnityEngine;
 
 public class BatterySpawner : MonoBehaviour
 {
-    public GameObject batteryPrefab;
+    [Header("Referensi Pool")]
+    [Tooltip("Pastikan tag ini sama dengan yang ada di PoolManager")]
+    public string batteryTag = "Battery";
+
+    [Header("Pengaturan Area")]
     public float spawnRangeX = 8f;
     public float spawnPosY = 12f;
 
-    // Sekarang mengembalikan nilai 'true' jika baterai berhasil di-spawn
     public bool EvaluateAndSpawn(int currentSecond, bool isFirstCycle)
     {
-        if (batteryPrefab == null) return false;
+        if (string.IsNullOrEmpty(batteryTag)) return false;
 
-        // 100% di detik ke-8
         if (currentSecond >= 8)
         {
             Spawn();
             return true;
         }
 
-        // Garansi di detik ke-2 siklus pertama
         if (isFirstCycle && currentSecond == 2)
         {
             Spawn();
             return true;
         }
 
-        // Peluang bertingkat
         if (currentSecond >= 2 && currentSecond <= 7)
         {
             float currentChance = GetSpawnChance(currentSecond);
             if (Random.Range(0f, 100f) <= currentChance)
             {
                 Spawn();
-                return true; // Beritahu manager untuk reset hitungan
+                return true; 
             }
         }
 
-        return false; // Tidak ada spawn di detik ini
+        return false; 
     }
 
     private float GetSpawnChance(int second)
@@ -57,6 +57,7 @@ public class BatterySpawner : MonoBehaviour
     {
         float randomX = Random.Range(-spawnRangeX, spawnRangeX);
         Vector3 spawnPos = new Vector3(randomX, spawnPosY, 0f);
-        Instantiate(batteryPrefab, spawnPos, Quaternion.identity);
+
+        PoolManager.Instance.SpawnFromPool(batteryTag, spawnPos, Quaternion.identity);
     }
 }

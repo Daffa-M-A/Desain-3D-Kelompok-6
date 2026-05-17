@@ -1382,18 +1382,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentLevel: 1
-  missilePrefab: {fileID: 3197149161019064539, guid: 8c5de2ab93e2a114d9bff4a0d2cded40, type: 3}
+  missileTag: Missile
+  laserVerticalTag: LaserWarningVertical
+  laserHorizontalTag: LaserWarningHorizontal
   bulletHellPrefabLvl1: {fileID: 5451035046336854393, guid: 955231a6b1956364b9bcb4e7e1bd7da5, type: 3}
   bulletHellPrefabLvl2: {fileID: 5451035046336854393, guid: 595f412de395e3745a0bdbae2d53da63, type: 3}
-  laserPrefabVertical: {fileID: 7146070455814129231, guid: 6ea482935c25d71499bdcb115ab6ff30, type: 3}
-  laserPrefabHorizontal: {fileID: 7550993595529172190, guid: 4def2df489133724db8471f6fef98eed, type: 3}
   swapLimit: 12
   spawnRangeX: 8
   spawnPosY: 12
   laserRangeY: 3
   minLaserY: 1
-  screenCenterX: -20
-  screenCenterY: 12
+  screenCenterX: 0
+  screenCenterY: 9
 --- !u!4 &659301291
 Transform:
   m_ObjectHideFlags: 0
@@ -1701,7 +1701,6 @@ GameObject:
   - component: {fileID: 709682255}
   - component: {fileID: 709682254}
   - component: {fileID: 709682253}
-  - component: {fileID: 709682252}
   m_Layer: 5
   m_Name: PS_UI_front
   m_TagString: Untagged
@@ -1709,57 +1708,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &709682252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 709682251}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 709682253}
-  m_FillRect: {fileID: 0}
-  m_HandleRect: {fileID: 0}
-  m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
-  m_WholeNumbers: 0
-  m_Value: 0
-  m_OnValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &709682253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2253,7 +2201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbccc9e04328ee841ab1a579cafbc156, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPower: 2000
+  currentPower: 1200
   maxPower: 2000
   drainRate: 30
 --- !u!114 &932978943
@@ -2269,7 +2217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerStorage: {fileID: 932978942}
-  powerSlider: {fileID: 709682252}
+  powerImage: {fileID: 709682253}
 --- !u!114 &932978944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2598,6 +2546,7 @@ MonoBehaviour:
   - {fileID: 317626285}
   - {fileID: 867888362}
   - {fileID: 665511325}
+  iFrameDuration: 3
 --- !u!1001 &1427732936
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3155,7 +3104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82b09ca9506e8c14683140abfea6c575, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  batteryPrefab: {fileID: 9145834548191125763, guid: 8e683405699c25647892dfed7e74461f, type: 3}
+  batteryTag: Battery
   spawnRangeX: 8
   spawnPosY: 10
 --- !u!4 &1851705651
@@ -3246,6 +3195,7 @@ GameObject:
   - component: {fileID: 2039691778}
   - component: {fileID: 2039691779}
   - component: {fileID: 2039691780}
+  - component: {fileID: 2039691781}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3299,6 +3249,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 5187409129493229605, guid: 3e1e56125ced64a46ba3800a539e3698, type: 3}
   poolSize: 10
+--- !u!114 &2039691781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2039691776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b050928f328cb9940b0762f15a7bc8b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PoolManager
+  pools:
+  - tag: Missile
+    prefab: {fileID: 3197149161019064539, guid: 8c5de2ab93e2a114d9bff4a0d2cded40, type: 3}
+    size: 5
+  - tag: Battery
+    prefab: {fileID: 9145834548191125763, guid: 8e683405699c25647892dfed7e74461f, type: 3}
+    size: 5
+  - tag: LaserWarningVertical
+    prefab: {fileID: 7146070455814129231, guid: 6ea482935c25d71499bdcb115ab6ff30, type: 3}
+    size: 5
+  - tag: LaserWarningHorizontal
+    prefab: {fileID: 7550993595529172190, guid: 4def2df489133724db8471f6fef98eed, type: 3}
+    size: 5
+  - tag: LaserHorizontal
+    prefab: {fileID: 3111401319933891199, guid: 2eb239086a53cd5429490268e3a99742, type: 3}
+    size: 5
+  - tag: LaserVertical
+    prefab: {fileID: 7449071827184485859, guid: 16d0fe7e00bd308469ce05ea90902671, type: 3}
+    size: 5
 --- !u!1 &2056295255
 GameObject:
   m_ObjectHideFlags: 0

@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49275897a2e7dee479e52d147ee77f8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LaserTelegraph
-  objectLaserPrefab: {fileID: 7449071827184485859, guid: 16d0fe7e00bd308469ce05ea90902671, type: 3}
+  realLaserTag: LaserVertical
   warningDuration: 1
   blinkInterval: 0.1
   useMeshBlink: 0

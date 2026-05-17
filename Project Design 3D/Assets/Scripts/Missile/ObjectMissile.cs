@@ -1,22 +1,26 @@
 using System.Collections;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ObjectMissile : MonoBehaviour
 {
-    [Header("Missile Settings")]
-    [Tooltip("Efek visual atau partikel saat meledak (Opsional)")]
-    [SerializeField] private GameObject explosionEffect;
+    private void OnEnable()
+    {
+        GetComponent<Collider>().enabled = true;
+
+        MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
+        if (meshRenderer != null)
+        {
+            meshRenderer.enabled = true;
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        // Mengecek apakah objek yang ditabrak adalah Player
         if (other.CompareTag("Player"))
         {
             HandlePlayerCollision();
         }
-        // Mengecek apakah objek jatuh mengenai lantai/tanah
         else if (other.CompareTag("Ground"))
         {
             HandleGroundCollision();
@@ -25,36 +29,26 @@ public class ObjectMissile : MonoBehaviour
 
     private void HandlePlayerCollision()
     {
-        // Pesan peringatan di Console
-        Debug.LogWarning("Player terkena missile");
-
-        // Kurangi health player
-        PlayerHealthSystem.Health--;
-        if (PlayerHealthSystem.Health <= 0)
+        if (PlayerHealthSystem.Instance != null)
         {
-            Application.Quit();// Keluar dari aplikasi saat health mencapai 0
-            EditorApplication.isPlaying = false; // Hanya untuk editor, agar tidak keluar dari aplikasi saat testing
+            PlayerHealthSystem.Instance.TakeDamage(); 
         }
-        else
-        {
-            StartCoroutine(TerkenaDMG());
-        }
-
-        // Hancurkan objek missile setelah mengenai player
-        Destroy(gameObject);
+        gameObject.SetActive(false); 
     }
 
     private void HandleGroundCollision()
     {
-        // Missile hancur saat menyentuh tanah agar tidak menumpuk di scene
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
-    // Coroutine untuk memberikan efek kebal sementara pada player setelah terkena damage
-    IEnumerator TerkenaDMG()
+    private void HideMissileTemporarily()
     {
-        Physics.IgnoreLayerCollision(6, 8);
-        yield return new WaitForSeconds(3);
-        Physics.IgnoreLayerCollision(6, 8, false);
+        GetComponent<Collider>().enabled = false;
+
+        MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
+        if (meshRenderer != null)
+        {
+            meshRenderer.enabled = false;
+        }
     }
 }
