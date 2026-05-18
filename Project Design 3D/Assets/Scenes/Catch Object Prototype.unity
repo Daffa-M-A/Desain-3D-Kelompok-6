@@ -1385,9 +1385,8 @@ MonoBehaviour:
   missileTag: Missile
   laserVerticalTag: LaserWarningVertical
   laserHorizontalTag: LaserWarningHorizontal
-  bulletHellPrefabLvl1: {fileID: 5451035046336854393, guid: 955231a6b1956364b9bcb4e7e1bd7da5, type: 3}
-  bulletHellPrefabLvl2: {fileID: 5451035046336854393, guid: 595f412de395e3745a0bdbae2d53da63, type: 3}
-  swapLimit: 12
+  bulletSpawnerPrefab: {fileID: 5451035046336854393, guid: 955231a6b1956364b9bcb4e7e1bd7da5, type: 3}
+  swapLimit: 3
   spawnRangeX: 8
   spawnPosY: 12
   laserRangeY: 3
@@ -3248,7 +3247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 5187409129493229605, guid: 3e1e56125ced64a46ba3800a539e3698, type: 3}
-  poolSize: 10
+  poolSize: 100
 --- !u!114 &2039691781
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,62 +1,36 @@
-using System.Collections;
-using UnityEditor;
 using UnityEngine;
-using UnityEditor.SceneManagement;
 
 public class ObjectBullet : MonoBehaviour
 {
-    [HideInInspector] public Vector3 moveDirection;
-    [HideInInspector] public float speed;
+    public float bulletLife = 1f;
+    public float rotation = 0f;
+    public float speed = 1f;
+
+    private Vector2 spawnPoint;
+    private float timer = 0f;
+
+    void OnEnable()
+    {
+        timer = 0f;
+        spawnPoint = new Vector2(transform.position.x, transform.position.y);
+    }
 
     void Update()
     {
-        transform.Translate(moveDirection * speed * Time.deltaTime, Space.World);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            Debug.LogWarning("Terkena Peluru Touhou!");
-            HandlePlayerCollision();
-            gameObject.SetActive(false); 
-        }
-        else if (other.CompareTag("Ground"))
-        {
-            gameObject.SetActive(false); 
-        }
-    }
-
-    private void OnDisable()
-    {
-        if (BulletPool.Instance != null)
+        if (timer > bulletLife)
         {
             BulletPool.Instance.ReturnBullet(gameObject);
+            return;
         }
+
+        timer += Time.deltaTime;
+        transform.position = Movement(timer);
     }
 
-    private void HandlePlayerCollision()
+    private Vector2 Movement(float timer)
     {
-        Debug.LogWarning("Player terkena missile");
-
-        PlayerHealthSystem.Health--;
-        if (PlayerHealthSystem.Health <= 0)
-        {
-            Application.Quit();
-            EditorApplication.isPlaying = false; 
-        }
-        else
-        {
-            StartCoroutine(TerkenaDMG());
-        }
-
-        Destroy(gameObject);
-    }
-
-    IEnumerator TerkenaDMG()
-    {
-        Physics.IgnoreLayerCollision(6, 8);
-        yield return new WaitForSeconds(3);
-        Physics.IgnoreLayerCollision(6, 8, false);
+        float x = timer * speed * (-transform.up.x);
+        float y = timer * speed * (-transform.up.y);
+        return new Vector2(x + spawnPoint.x, y + spawnPoint.y);
     }
 }

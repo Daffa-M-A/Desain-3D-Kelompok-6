@@ -6,7 +6,6 @@ public class DangerSpawner : MonoBehaviour
     public enum DangerType { Missile, BulletHell, Laser }
 
     [Header("Pengaturan Level")]
-    [Tooltip("Ubah ini menjadi 2 untuk menguji kesulitan Level 2")]
     [Range(1, 2)] public int currentLevel = 1;
 
     [Header("Referensi Pool")]
@@ -15,8 +14,7 @@ public class DangerSpawner : MonoBehaviour
     public string laserHorizontalTag = "LaserWarningHorizontal";
 
     [Header("Referensi Bullet Hell")]
-    public GameObject bulletHellPrefabLvl1;
-    public GameObject bulletHellPrefabLvl2;
+    public GameObject bulletSpawnerPrefab; 
 
     [Header("Pengaturan Siklus")]
     public int swapLimit = 12;
@@ -70,14 +68,28 @@ public class DangerSpawner : MonoBehaviour
 
     private void SpawnBulletHell()
     {
-        GameObject prefabToSpawn = (currentLevel >= 2) ? bulletHellPrefabLvl2 : bulletHellPrefabLvl1;
-
-        if (prefabToSpawn != null)
+        if (bulletSpawnerPrefab != null)
         {
             float randomX = Random.Range(-spawnRangeX, spawnRangeX);
             Vector3 spawnPos = new Vector3(randomX, spawnPosY, 0f);
 
-            Instantiate(prefabToSpawn, spawnPos, Quaternion.identity);
+            GameObject spawnerObj = Instantiate(bulletSpawnerPrefab, spawnPos, Quaternion.identity);
+
+            BulletSpawner spawnerScript = spawnerObj.GetComponent<BulletSpawner>();
+
+            if (spawnerScript != null)
+            {
+                if (currentLevel == 1)
+                {
+                    spawnerScript.spawnerType = BulletSpawner.SpawnerType.Straight;
+                    Debug.Log("Spawn Bullet Hell: Mode STRAIGHT (Level 1)");
+                }
+                else if (currentLevel >= 2)
+                {
+                    spawnerScript.spawnerType = BulletSpawner.SpawnerType.Spin;
+                    Debug.Log("Spawn Bullet Hell: Mode SPIN (Level 2)");
+                }
+            }
         }
     }
 
