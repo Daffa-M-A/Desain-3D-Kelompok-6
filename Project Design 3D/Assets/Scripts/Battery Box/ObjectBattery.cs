@@ -13,6 +13,9 @@ public class ObjectBattery : MonoBehaviour
         if (rb != null)
         {
             rb.isKinematic = false;
+
+            rb.linearVelocity = Vector3.zero;  
+            rb.angularVelocity = Vector3.zero; 
         }
     }
 

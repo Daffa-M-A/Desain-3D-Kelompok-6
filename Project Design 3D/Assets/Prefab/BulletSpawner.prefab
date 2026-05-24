@@ -51,5 +51,5 @@ MonoBehaviour:
   firingRate: 0.2
   maxWaves: 10
   spinSpeed: 90
-  spreadBulletsCount: 5
+  spreadBulletsCount: 3
   spreadAngle: 15

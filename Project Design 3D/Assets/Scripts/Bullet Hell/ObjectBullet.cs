@@ -33,4 +33,17 @@ public class ObjectBullet : MonoBehaviour
         float y = timer * speed * (-transform.up.y);
         return new Vector2(x + spawnPoint.x, y + spawnPoint.y);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == 8 || other.CompareTag("Player"))
+        {
+            if (PlayerHealthSystem.Instance != null)
+            {
+                PlayerHealthSystem.Instance.TakeDamage();
+            }
+
+            BulletPool.Instance.ReturnBullet(gameObject);
+        }
+    }
 }

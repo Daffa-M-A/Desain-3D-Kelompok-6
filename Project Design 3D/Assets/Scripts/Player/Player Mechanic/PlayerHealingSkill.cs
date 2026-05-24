@@ -15,6 +15,9 @@ public class PlayerHealingSkill : MonoBehaviour
     [Header("Input Referensi")]
     public InputActionReference healAction;
 
+    [Header("Referensi Animasi")]
+    public Animator animator;
+
     private void OnEnable()
     {
         if (healAction != null)
@@ -58,6 +61,8 @@ public class PlayerHealingSkill : MonoBehaviour
         PlayerHealthSystem.Health += healAmount;
 
         PlayerHealthSystem.Health = Mathf.Clamp(PlayerHealthSystem.Health, 0, maxHealth);
+
+        if (animator != null) animator.SetTrigger("IsHealing");
 
         Debug.Log($"Berhasil Heal! HP Sekarang: {PlayerHealthSystem.Health} | Sisa Energi: {currentEnergy}");
     }

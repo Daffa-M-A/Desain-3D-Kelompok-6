@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-#if UNITY_EDITOR
-using UnityEditor; 
-#endif
 
 public class PlayerHealthSystem : MonoBehaviour
 {
@@ -18,6 +15,9 @@ public class PlayerHealthSystem : MonoBehaviour
     [Header("Pengaturan Kebal (I-Frame)")]
     public float iFrameDuration = 3f;
     private bool isInvincible = false;
+
+    [Header("Referensi Animasi")]
+    public Animator animator;
 
     void Awake()
     {
@@ -44,7 +44,8 @@ public class PlayerHealthSystem : MonoBehaviour
         if (isInvincible) return;
 
         Health--;
-        Debug.LogWarning($"Player terkena damage! Sisa HP: {Health}");
+
+        if (animator != null) animator.SetTrigger("IsHit");
 
         if (Health <= 0)
         {
@@ -58,11 +59,12 @@ public class PlayerHealthSystem : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("Game Over!");
-        Application.Quit();
-#if UNITY_EDITOR
-        EditorApplication.isPlaying = false;
-#endif
+        if (animator != null) animator.SetTrigger("IsDeath");
+
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.TriggerGameOver();
+        }
     }
 
     private IEnumerator TerkenaDMGRoutine()
