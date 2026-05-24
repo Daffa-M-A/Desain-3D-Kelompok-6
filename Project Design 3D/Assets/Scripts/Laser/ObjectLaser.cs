@@ -32,7 +32,6 @@ public class ObjectLaser : MonoBehaviour
         {
             PlayerHealthSystem.Instance.TakeDamage(); 
         }
-        gameObject.SetActive(false); 
     }
 
     private void HideLaser()

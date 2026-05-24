@@ -21,6 +21,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float normalFallMultiplier = 2.5f;
     [SerializeField] private float fastFallMultiplier = 10f;
 
+    [Header("Referensi Animasi")]
+    public Animator animator;
+
     private Rigidbody rb;
     private bool isGrounded = true;
     private float horizontalInput = 0f;
@@ -92,7 +95,24 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Vector3 moveDirection = new Vector3(horizontalInput, 0f, 0f);
-        transform.Translate(moveDirection * currentSpeed * Time.deltaTime);
+        transform.Translate(moveDirection * currentSpeed * Time.deltaTime, Space.World);
+
+        if (isMoving)
+        {
+            Vector3 faceDirection = moveDirection.normalized;
+
+            Quaternion targetRotation = Quaternion.LookRotation(faceDirection);
+
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 15f);
+        }
+
+        if (animator != null)
+        {
+            float speedParameter = isMoving ? currentSpeed : 0f;
+            animator.SetFloat("Speed", speedParameter);
+
+            animator.SetBool("IsGrounded", isGrounded);
+        }
     }
 
     void FixedUpdate()
@@ -117,6 +137,7 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
+            animator.SetTrigger("Jump");
         }
     }
 
