@@ -45,7 +45,8 @@ public class PowerReceiver : MonoBehaviour
             // Kirim daya ke Storage Utama
             mainStorage.AddPower(totalRecovery);
 
-            score += 1000; // Tambahkan skor berdasarkan jumlah baterai yang disetor
+            // Tambahkan skor berdasarkan jumlah baterai yang disetor
+            score += 1000;
 
             // Kosongkan tas player
             playerInventory.currentBattery = 0;
