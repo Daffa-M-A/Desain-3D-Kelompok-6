@@ -1,19 +1,25 @@
 using UnityEngine;
-using UnityEngine.InputSystem; // Wajib ditambahkan untuk New Input System
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody))]
-public class PlayerMovementNewInput : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement Settings")]
-    [SerializeField] private float speed = 15f;
+    [SerializeField] private float walkSpeed = 10f;
+    [SerializeField] private float sprintSpeed = 15f;
     [SerializeField] private float jumpForce = 7f;
+    [SerializeField] private float jumpCooldown = 0.5f;
+    private float nextJumpTime = 0f; 
 
     [Header("Input References")]
-    [Tooltip("Masukkan Input Action untuk bergerak (1D Axis)")]
     [SerializeField] private InputActionReference moveAction;
-
-    [Tooltip("Masukkan Input Action untuk lompat (Button)")]
     [SerializeField] private InputActionReference jumpAction;
+    [SerializeField] private InputActionReference sprintAction;
+    [SerializeField] private InputActionReference fastFallAction;
+
+    [Header("Gravity Settings")]
+    [SerializeField] private float normalFallMultiplier = 2.5f;
+    [SerializeField] private float fastFallMultiplier = 10f;
 
     private Rigidbody rb;
     private bool isGrounded = true;
@@ -24,38 +30,90 @@ public class PlayerMovementNewInput : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    // Input Action harus di-enable dan di-disable secara manual
     private void OnEnable()
     {
-        moveAction.action.Enable();
-        jumpAction.action.Enable();
+        if (moveAction != null) moveAction.action.Enable();
 
-        // Mendaftarkan event saat tombol lompat ditekan (mirip GetKeyDown)
-        jumpAction.action.performed += OnJump;
+        if (jumpAction != null)
+        {
+            jumpAction.action.Enable();
+            jumpAction.action.performed += OnJump;
+        }
+
+        if (sprintAction != null) sprintAction.action.Enable();
+
+        if (fastFallAction != null) fastFallAction.action.Enable();
     }
 
     private void OnDisable()
     {
-        moveAction.action.Disable();
-        jumpAction.action.Disable();
+        if (moveAction != null) moveAction.action.Disable();
 
-        // Melepas event agar tidak terjadi error memori bocor (memory leak)
-        jumpAction.action.performed -= OnJump;
+        if (jumpAction != null)
+        {
+            jumpAction.action.Disable();
+            jumpAction.action.performed -= OnJump;
+        }
+
+        if (sprintAction != null) sprintAction.action.Disable();
+
+        if (fastFallAction != null) fastFallAction.action.Disable();
     }
 
     void Update()
     {
-        // Membaca nilai pergerakan (bernilai -1 untuk A, dan 1 untuk D)
         horizontalInput = moveAction.action.ReadValue<float>();
+        bool isMoving = Mathf.Abs(horizontalInput) > 0.1f;
+
+        bool isSprintHeld = false;
+        if (sprintAction != null && sprintAction.action != null)
+        {
+            isSprintHeld = sprintAction.action.IsPressed();
+        }
+
+        float currentSpeed = walkSpeed;
+
+        if (PlayerStaminaSystem.Instance != null)
+        {
+            if (isSprintHeld && isMoving && PlayerStaminaSystem.Instance.HasStamina())
+            {
+                currentSpeed = sprintSpeed;
+                PlayerStaminaSystem.Instance.DrainStamina();
+            }
+            else
+            {
+                currentSpeed = walkSpeed;
+                PlayerStaminaSystem.Instance.RegenerateStamina();
+            }
+        }
+        else
+        {
+            currentSpeed = isSprintHeld ? sprintSpeed : walkSpeed;
+        }
 
         Vector3 moveDirection = new Vector3(horizontalInput, 0f, 0f);
-        transform.Translate(moveDirection * speed * Time.deltaTime);
+        transform.Translate(moveDirection * currentSpeed * Time.deltaTime);
     }
 
-    // Fungsi ini hanya dipanggil TEPAT saat tombol spasi ditekan
+    void FixedUpdate()
+    {
+        if (rb.linearVelocity.y < 0)
+        {
+            bool isFastFalling = false;
+            if (fastFallAction != null && fastFallAction.action != null)
+            {
+                isFastFalling = fastFallAction.action.IsPressed();
+            }
+
+            float currentMultiplier = isFastFalling ? fastFallMultiplier : normalFallMultiplier;
+
+            rb.linearVelocity += Vector3.up * Physics.gravity.y * (currentMultiplier - 1f) * Time.fixedDeltaTime;
+        }
+    }
+
     private void OnJump(InputAction.CallbackContext context)
     {
-        if (isGrounded)
+        if (isGrounded && Time.time >= nextJumpTime)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
@@ -66,6 +124,11 @@ public class PlayerMovementNewInput : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
+            if (!isGrounded)
+            {
+                nextJumpTime = Time.time + jumpCooldown;
+            }
+
             isGrounded = true;
         }
     }
