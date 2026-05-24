@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/COB_MainMenu.unity
     guid: f1dd959c1f29df0459f2bc5e291a3324
   - enabled: 1
-    path: Assets/Scenes/Catch Object Prototype.unity
+    path: Assets/Scenes/COB_Level 1.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
     path: Assets/Scenes/COB_Level 2.unity
