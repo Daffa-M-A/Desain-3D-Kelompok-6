@@ -3,6 +3,9 @@ using System.Collections;
 
 public class ObjectBattery : MonoBehaviour
 {
+    [Header("Rotation Settings")]
+    [Tooltip("Speed of the rotation. Higher values mean faster spinning.")]
+    [SerializeField] private float rotationSpeed = 100f;
     private bool isOnGround = false;
 
     private void OnEnable()
@@ -17,6 +20,12 @@ public class ObjectBattery : MonoBehaviour
             rb.linearVelocity = Vector3.zero;  
             rb.angularVelocity = Vector3.zero; 
         }
+    }
+
+    private void Update()
+    {
+        // Vector3.down rotates the object counter-clockwise (right to left) around its Y-axis
+        transform.Rotate(Vector3.down * rotationSpeed * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)

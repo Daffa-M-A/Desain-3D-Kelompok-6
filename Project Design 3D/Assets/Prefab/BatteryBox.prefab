@@ -185,3 +185,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5681c58b5d49651479644e4b8ac00e6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectBattery
+  rotationSpeed: 85
