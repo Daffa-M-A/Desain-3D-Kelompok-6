@@ -73,7 +73,7 @@ public class DangerSpawner : MonoBehaviour
             float randomX = Random.Range(-spawnRangeX, spawnRangeX);
             Vector3 spawnPos = new Vector3(randomX, spawnPosY, 0f);
 
-            GameObject spawnerObj = Instantiate(bulletSpawnerPrefab, spawnPos, Quaternion.identity);
+            GameObject spawnerObj = Instantiate(bulletSpawnerPrefab, spawnPos, bulletSpawnerPrefab.transform.rotation);
 
             BulletSpawner spawnerScript = spawnerObj.GetComponent<BulletSpawner>();
 
@@ -81,8 +81,8 @@ public class DangerSpawner : MonoBehaviour
             {
                 if (currentLevel == 1)
                 {
-                    spawnerScript.spawnerType = BulletSpawner.SpawnerType.Straight;
-                    Debug.Log("Spawn Bullet Hell: Mode STRAIGHT (Level 1)");
+                    spawnerScript.spawnerType = BulletSpawner.SpawnerType.Spread; 
+                    Debug.Log("Spawn Bullet Hell: Mode SPREAD (Level 1)");
                 }
                 else if (currentLevel >= 2)
                 {
