@@ -67,9 +67,9 @@ MonoBehaviour:
   uiBounds:
     serializedVersion: 2
     x: 992
-    y: -718
-    width: 3574
-    height: 2495
+    y: -719
+    width: 3575
+    height: 2575
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5521,16 +5521,23 @@ MonoBehaviour:
         materialSettings:
           m_PropertyNames:
           - _AlphaClip
+          - _AlphaToMask
           - _Blend
           - _BlendModePreserveSpecular
+          - _CastShadows
           - _DstBlend
           - _DstBlendAlpha
           - _QueueControl
           - _ReceiveShadows
           - _SrcBlend
+          - _SrcBlendAlpha
+          - _Surface
           - _WorkflowMode
+          - _ZWrite
           m_PropertyValues:
           - 1
+          - 0
+          - 0
           - 0
           - 0
           - 10
@@ -5539,6 +5546,9 @@ MonoBehaviour:
           - 0
           - 5
           - 1
+          - 1
+          - 1
+          - 0
           renderQueue: 3000
 --- !u!114 &8926484042661616872
 MonoBehaviour:
@@ -6495,7 +6505,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"obj":{"fileID":2800000,"guid":"f6da6c87f8f48ad47a5a8c6c3ffc71ce","type":3}}'
+      m_SerializableObject: 
     m_Space: -1
   m_Property:
     name: _Mask
@@ -6692,7 +6702,7 @@ MonoBehaviour:
   - {fileID: 8926484042661616907}
   - {fileID: 8926484042661616908}
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 1
+  m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_MasterSlot: {fileID: 8926484042661616906}
   m_MasterData:
