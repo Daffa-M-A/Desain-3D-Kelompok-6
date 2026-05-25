@@ -8,6 +8,9 @@ public class PowerReceiver : MonoBehaviour
     [Header("Referensi")]
     [Tooltip("Masukkan objek yang memiliki script PowerStorage ke sini")]
     [SerializeField] private PowerStorage mainStorage;
+    
+    [Tooltip("Masukkan Particle System yang ingin dinyalakan saat setor baterai")]
+    [SerializeField] private ParticleSystem depositEffect; // Added particle system reference
 
     [Header("Pengaturan")]
     [SerializeField] private float powerPerBattery = 90f;
@@ -47,6 +50,12 @@ public class PowerReceiver : MonoBehaviour
 
             // Tambahkan skor berdasarkan jumlah baterai yang disetor
             score += 1000;
+
+            // Mainkan efek partikel jika referensi sudah dipasang di Inspector
+            if (depositEffect != null)
+            {
+                depositEffect.Play();
+            }
 
             // Kosongkan tas player
             playerInventory.currentBattery = 0;

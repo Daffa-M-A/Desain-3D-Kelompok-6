@@ -18,6 +18,10 @@ public class PlayerHealingSkill : MonoBehaviour
     [Header("Referensi Animasi")]
     public Animator animator;
 
+    [Header("Referensi Partikel Efek")]
+    [Tooltip("Masukkan Particle System yang ingin dinyalakan saat menggunakan healing skill")]
+    [SerializeField] private ParticleSystem healingParticles; // Added particle system reference
+
     private void OnEnable()
     {
         if (healAction != null)
@@ -61,6 +65,12 @@ public class PlayerHealingSkill : MonoBehaviour
         PlayerHealthSystem.Health += healAmount;
 
         PlayerHealthSystem.Health = Mathf.Clamp(PlayerHealthSystem.Health, 0, maxHealth);
+
+        // Mainkan efek partikel jika referensi sudah dipasang di Inspector
+        if (healingParticles != null)
+        {
+            healingParticles.Play();
+        }
 
         if (animator != null) animator.SetTrigger("IsHealing");
 

@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 784739251194111231}
   - component: {fileID: 3497815425755432028}
   - component: {fileID: 7160702352766185617}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LaserHorizontal
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -81,7 +81,7 @@ GameObject:
   - component: {fileID: 565973877693086828}
   - component: {fileID: 4230490552722363652}
   - component: {fileID: 1067630057307737803}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LaserHorizontal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +150,7 @@ VFXRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3127111849124802748}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0

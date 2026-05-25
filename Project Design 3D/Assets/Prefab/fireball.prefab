@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7780695389582842315}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: electric
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 631038800107282979}
   - component: {fileID: 2062461827326800133}
   - component: {fileID: 4893290229327574253}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Electric
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -233,6 +233,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 1742a62b2fc83064b89bc0bf4bc9c222, type: 3}
       propertyPath: m_Name
       value: fireball
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1742a62b2fc83064b89bc0bf4bc9c222, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1742a62b2fc83064b89bc0bf4bc9c222, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
