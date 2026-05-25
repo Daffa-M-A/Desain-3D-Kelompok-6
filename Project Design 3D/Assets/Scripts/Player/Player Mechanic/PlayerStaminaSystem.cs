@@ -7,8 +7,11 @@ public class PlayerStaminaSystem : MonoBehaviour
     [Header("Pengaturan Stamina")]
     public float maxStamina = 100f;
     public float currentStamina;
-    public float staminaDrainRate = 5f;    
-    public float staminaRegenRate = 5f;    
+    public float staminaDrainRate = 5f;
+    public float staminaRegenRate = 5f;
+
+    // Tambahan gembok kelelahan
+    private bool isExhausted = false;
 
     void Awake()
     {
@@ -16,25 +19,34 @@ public class PlayerStaminaSystem : MonoBehaviour
         currentStamina = maxStamina;
     }
 
-    void Update()
-    {
-
-    }
-
     public void DrainStamina()
     {
         currentStamina -= staminaDrainRate * Time.deltaTime;
-        currentStamina = Mathf.Clamp(currentStamina, 0f, maxStamina);
+
+        if (currentStamina <= 0f)
+        {
+            currentStamina = 0f;
+            isExhausted = true;
+        }
     }
 
     public void RegenerateStamina()
     {
         currentStamina += staminaRegenRate * Time.deltaTime;
-        currentStamina = Mathf.Clamp(currentStamina, 0f, maxStamina);
+
+        if (currentStamina >= maxStamina)
+        {
+            currentStamina = maxStamina;
+        }
+
+        if (isExhausted && currentStamina > 20f)
+        {
+            isExhausted = false;
+        }
     }
 
     public bool HasStamina()
     {
-        return currentStamina > 0f;
+        return currentStamina > 0f && !isExhausted;
     }
 }

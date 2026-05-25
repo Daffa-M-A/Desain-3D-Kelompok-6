@@ -9,7 +9,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float sprintSpeed = 15f;
     [SerializeField] private float jumpForce = 7f;
     [SerializeField] private float jumpCooldown = 0.5f;
-    private float nextJumpTime = 0f; 
+    private float nextJumpTime = 0f;
+    private bool requireNewSprintPress = false;
 
     [Header("Input References")]
     [SerializeField] private InputActionReference moveAction;
@@ -74,11 +75,21 @@ public class PlayerMovement : MonoBehaviour
             isSprintHeld = sprintAction.action.IsPressed();
         }
 
+        if (!isSprintHeld)
+        {
+            requireNewSprintPress = false;
+        }
+
         float currentSpeed = walkSpeed;
 
         if (PlayerStaminaSystem.Instance != null)
         {
-            if (isSprintHeld && isMoving && PlayerStaminaSystem.Instance.HasStamina())
+            if (isSprintHeld && !PlayerStaminaSystem.Instance.HasStamina())
+            {
+                requireNewSprintPress = true;
+            }
+
+            if (isSprintHeld && isMoving && PlayerStaminaSystem.Instance.HasStamina() && !requireNewSprintPress)
             {
                 currentSpeed = sprintSpeed;
                 PlayerStaminaSystem.Instance.DrainStamina();

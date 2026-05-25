@@ -2603,8 +2603,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStaminaSystem
   maxStamina: 100
   currentStamina: 100
-  staminaDrainRate: 5
-  staminaRegenRate: 5
+  staminaDrainRate: 20
+  staminaRegenRate: 10
 --- !u!114 &1413217997
 MonoBehaviour:
   m_ObjectHideFlags: 0
