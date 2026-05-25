@@ -2016,7 +2016,7 @@ MonoBehaviour:
   spawnPosY: 12
   laserRangeY: 3
   minLaserY: 1
-  screenCenterX: -9
+  screenCenterX: -14
   screenCenterY: 9
 --- !u!4 &659301291
 Transform:
