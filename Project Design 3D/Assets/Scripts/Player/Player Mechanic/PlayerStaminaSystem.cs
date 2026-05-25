@@ -10,6 +10,10 @@ public class PlayerStaminaSystem : MonoBehaviour
     public float staminaDrainRate = 5f;
     public float staminaRegenRate = 5f;
 
+    [Header("Pengaturan Cooldown / Delay")]
+    [SerializeField] private float regenDelay = 1.5f; // <-- How long to wait before starting recovery
+    private float regenTimer = 0f;                    // <-- Tracks the delay progress
+
     // Tambahan gembok kelelahan
     private bool isExhausted = false;
 
@@ -21,6 +25,9 @@ public class PlayerStaminaSystem : MonoBehaviour
 
     public void DrainStamina()
     {
+        // Reset the timer completely whenever stamina is actively being used
+        regenTimer = regenDelay;
+
         currentStamina -= staminaDrainRate * Time.deltaTime;
 
         if (currentStamina <= 0f)
@@ -32,6 +39,13 @@ public class PlayerStaminaSystem : MonoBehaviour
 
     public void RegenerateStamina()
     {
+        // Tick down the delay timer first if it hasn't finished yet
+        if (regenTimer > 0f)
+        {
+            regenTimer -= Time.deltaTime;
+            return; // Exit out early; do not recover stamina yet
+        }
+
         currentStamina += staminaRegenRate * Time.deltaTime;
 
         if (currentStamina >= maxStamina)

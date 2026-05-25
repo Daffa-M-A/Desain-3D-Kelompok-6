@@ -2496,7 +2496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf81bf90295917d4db7df01baeb50e9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovementNewInput
-  walkSpeed: 5
+  walkSpeed: 4
   sprintSpeed: 10
   jumpForce: 8
   jumpCooldown: 0.5
@@ -2603,8 +2603,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStaminaSystem
   maxStamina: 100
   currentStamina: 100
-  staminaDrainRate: 20
-  staminaRegenRate: 10
+  staminaDrainRate: 65
+  staminaRegenRate: 80
+  regenDelay: 0.3
 --- !u!114 &1413217997
 MonoBehaviour:
   m_ObjectHideFlags: 0
