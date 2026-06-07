@@ -21,6 +21,10 @@ public class DangerSpawner : MonoBehaviour
     [Header("Pengaturan Missile")]
     public float missileDelay = 0.5f;
 
+    [Header("Pengaturan Bullet Hell")]
+    public int bulletSpawnerCountLevel2 = 2; 
+    public float bulletSpawnerDelay = 0.5f;
+
     [Header("Pengaturan Area")]
     public float spawnRangeX = 8f;
     public float spawnPosY = 12f;
@@ -78,23 +82,38 @@ public class DangerSpawner : MonoBehaviour
 
     private void SpawnBulletHell()
     {
+        StartCoroutine(SpawnBulletHellRoutine());
+    }
+
+    private System.Collections.IEnumerator SpawnBulletHellRoutine()
+    {
         if (bulletSpawnerPrefab != null)
         {
             float randomX = Random.Range(-spawnRangeX, spawnRangeX);
-            Vector3 spawnPos = new Vector3(randomX, spawnPosY, 0f);
+            Vector3 fixedSpawnPos = new Vector3(randomX, spawnPosY, 0f);
 
-            GameObject spawnerObj = Instantiate(bulletSpawnerPrefab, spawnPos, bulletSpawnerPrefab.transform.rotation);
-            BulletSpawner spawnerScript = spawnerObj.GetComponent<BulletSpawner>();
+            int spawnerCount = (LevelManager.Instance.currentLevel >= 2) ? bulletSpawnerCountLevel2 : 1;
 
-            if (spawnerScript != null)
+            for (int i = 0; i < spawnerCount; i++)
             {
-                if (LevelManager.Instance.currentLevel == 1)
+                GameObject spawnerObj = Instantiate(bulletSpawnerPrefab, fixedSpawnPos, bulletSpawnerPrefab.transform.rotation);
+                BulletSpawner spawnerScript = spawnerObj.GetComponent<BulletSpawner>();
+
+                if (spawnerScript != null)
                 {
-                    spawnerScript.spawnerType = BulletSpawner.SpawnerType.Spread;
+                    if (LevelManager.Instance.currentLevel == 1)
+                    {
+                        spawnerScript.spawnerType = BulletSpawner.SpawnerType.Spread;
+                    }
+                    else if (LevelManager.Instance.currentLevel >= 2)
+                    {
+                        spawnerScript.spawnerType = BulletSpawner.SpawnerType.Spin;
+                    }
                 }
-                else if (LevelManager.Instance.currentLevel >= 2)
+
+                if (i < spawnerCount - 1)
                 {
-                    spawnerScript.spawnerType = BulletSpawner.SpawnerType.Spin;
+                    yield return new WaitForSeconds(bulletSpawnerDelay);
                 }
             }
         }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletSpawner : MonoBehaviour
@@ -23,12 +21,9 @@ public class BulletSpawner : MonoBehaviour
 
     [Header("Spin Settings")]
     public float spinSpeed = 90f;
-    public int spinLayers = 1;      
-    public int spinDepth = 3;       
-    public float spinDepthDelay = 0.1f; 
+    public int spinLayers = 1; 
 
     private float timer = 0f;
-    private bool isFiring = false; 
 
     void Start()
     {
@@ -44,66 +39,45 @@ public class BulletSpawner : MonoBehaviour
 
     void Update()
     {
-        if (!isFiring)
-        {
-            timer += Time.deltaTime;
-        }
+        timer += Time.deltaTime;
 
         if (spawnerType == SpawnerType.Spin)
         {
             transform.Rotate(0f, 0f, spinSpeed * Time.deltaTime);
         }
 
-        if (timer >= firingRate && !isFiring)
+        if (timer >= firingRate)
         {
-            if (spawnerType == SpawnerType.Spread)
-            {
-                FireSpread();
-            }
-            else if (spawnerType == SpawnerType.Spin)
-            {
-                StartCoroutine(FireSpinStaggered());
-            }
-
-            timer = 0; // Reset ke 0
+            Fire();
+            timer = 0;
         }
     }
 
-    private void FireSpread()
+    private void Fire()
     {
-        float startAngle = -spreadAngle * (spreadBulletsCount - 1) / 2f;
+        waveCounter++;
 
-        for (int i = 0; i < spreadBulletsCount; i++)
+        if (spawnerType == SpawnerType.Spread)
         {
-            float currentAngle = startAngle + (spreadAngle * i);
-            SpawnSingleBullet(currentAngle);
+            float startAngle = -spreadAngle * (spreadBulletsCount - 1) / 2f;
+
+            for (int i = 0; i < spreadBulletsCount; i++)
+            {
+                float currentAngle = startAngle + (spreadAngle * i);
+                SpawnSingleBullet(currentAngle);
+            }
         }
-
-        CheckWaveEnd();
-    }
-
-    private IEnumerator FireSpinStaggered()
-    {
-        isFiring = true;
-        float angleStep = 360f / spinLayers;
-
-        for (int depth = 0; depth < spinDepth; depth++)
+        else if (spawnerType == SpawnerType.Spin)
         {
+            float angleStep = 360f / spinLayers;
+
             for (int i = 0; i < spinLayers; i++)
             {
                 float currentAngle = angleStep * i;
                 SpawnSingleBullet(currentAngle);
             }
-            yield return new WaitForSeconds(spinDepthDelay);
         }
 
-        isFiring = false;
-        CheckWaveEnd();
-    }
-
-    private void CheckWaveEnd()
-    {
-        waveCounter++;
         if (waveCounter >= maxWaves)
         {
             Destroy(gameObject);
