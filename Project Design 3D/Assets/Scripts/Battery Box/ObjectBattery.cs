@@ -16,7 +16,6 @@ public class ObjectBattery : MonoBehaviour
         if (rb != null)
         {
             rb.isKinematic = false;
-
             rb.linearVelocity = Vector3.zero;  
             rb.angularVelocity = Vector3.zero; 
         }
@@ -24,7 +23,6 @@ public class ObjectBattery : MonoBehaviour
 
     private void Update()
     {
-        // Vector3.down rotates the object counter-clockwise (right to left) around its Y-axis
         transform.Rotate(Vector3.down * rotationSpeed * Time.deltaTime);
     }
 
@@ -40,10 +38,17 @@ public class ObjectBattery : MonoBehaviour
 
                 if (isCollected)
                 {
+                    // Call our global manager to spawn the tracking effect!
+                    if (OrbManager.Instance != null)
+                    {
+                        OrbManager.Instance.SpawnTrackingOrb(transform.position, other.transform);
+                    }
+
+                    // Pure pooling safety: Turn off immediately! 
                     gameObject.SetActive(false);
                 }
             }
-        }
+        } 
 
         else if (other.CompareTag("Ground") && !isOnGround)
         {
