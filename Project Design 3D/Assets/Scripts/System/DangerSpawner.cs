@@ -121,28 +121,15 @@ public class DangerSpawner : MonoBehaviour
 
     private void SpawnLaser()
     {
-        bool isHorizontal = false;
+        float randomX = Random.Range(-spawnRangeX, spawnRangeX);
+        Vector3 spawnPosVertical = new Vector3(randomX, screenCenterY, 0f);
+        PoolManager.Instance.SpawnFromPool(laserVerticalTag, spawnPosVertical, Quaternion.identity);
 
         if (LevelManager.Instance.currentLevel >= 2)
         {
-            isHorizontal = Random.value > 0.5f;
-        }
-
-        Vector3 spawnPos = Vector3.zero;
-
-        if (!isHorizontal)
-        {
-            float randomX = Random.Range(-spawnRangeX, spawnRangeX);
-            spawnPos = new Vector3(randomX, screenCenterY, 0f);
-
-            PoolManager.Instance.SpawnFromPool(laserVerticalTag, spawnPos, Quaternion.identity);
-        }
-        else
-        {
             float randomY = Random.Range(minLaserY, laserRangeY);
-            spawnPos = new Vector3(screenCenterX, randomY, 0f);
-
-            PoolManager.Instance.SpawnFromPool(laserHorizontalTag, spawnPos, Quaternion.identity);
+            Vector3 spawnPosHorizontal = new Vector3(screenCenterX, randomY, 0f);
+            PoolManager.Instance.SpawnFromPool(laserHorizontalTag, spawnPosHorizontal, Quaternion.identity);
         }
     }
 
