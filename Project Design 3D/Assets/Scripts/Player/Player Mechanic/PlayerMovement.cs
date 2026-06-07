@@ -117,11 +117,22 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 15f);
         }
 
+// --- ANIMATION CONTROLLER ---
         if (animator != null)
         {
-            float speedParameter = isMoving ? currentSpeed : 0f;
-            animator.SetFloat("Speed", speedParameter);
+            float speedParameter = 0f;
 
+            if (isMoving)
+            {
+                // If currentSpeed is greater than walking speed, set to 2 (Sprint), else set to 1 (Walk)
+                speedParameter = (currentSpeed > walkSpeed) ? 2f : 1f;
+            }
+
+            // Using SmoothDamp or a simple Lerp makes the parameter transition smoothly in the Blend Tree
+            float currentAnimSpeed = animator.GetFloat("Speed");
+            float smoothedSpeed = Mathf.MoveTowards(currentAnimSpeed, speedParameter, Time.deltaTime * 5f);
+
+            animator.SetFloat("Speed", smoothedSpeed);
             animator.SetBool("IsGrounded", isGrounded);
         }
     }
