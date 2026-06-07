@@ -6139,6 +6139,7 @@ MonoBehaviour:
   mainStorage: {fileID: 932978942}
   depositEffect: {fileID: 1359238667}
   powerPerBattery: 90
+  bonusPerBattery: 0.01
   scoreText: {fileID: 435892600}
   score: 0
 --- !u!65 &669062379
@@ -6741,6 +6742,8 @@ MonoBehaviour:
   currentPower: 1200
   maxPower: 2000
   drainRate: 30
+  powerThresholdTrigger: 1250
+  powerForceValue: 1250
 --- !u!114 &932978943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11728,6 +11731,10 @@ MonoBehaviour:
   powerReceiver: {fileID: 669062378}
   scorePerSecond: 120
   rocketInstantBonus: 100
+  playerHealingSkill: {fileID: 1413217997}
+  energyBurstAmount: 5
+  energyGainCooldown: 1.5
+  energyContinuousPerSecond: 2
 --- !u!1 &1242357013
 GameObject:
   m_ObjectHideFlags: 0
@@ -16776,6 +16783,7 @@ MonoBehaviour:
   - {fileID: 665511325}
   iFrameDuration: 3
   animator: {fileID: 1413217998}
+  playerMovementScript: {fileID: 1413217989}
 --- !u!114 &1413217996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16807,6 +16815,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealingSkill
   healAmount: 1
   energyCost: 100
+  maxEnergy: 100
+  invincibilityDuration: 1
+  animationSmoothSpeed: 5
   currentEnergy: 0
   healAction: {fileID: 6726387401637836817, guid: 251fb58dbc184a745b43e278b6152656, type: 3}
   animator: {fileID: 1413217998}
@@ -18192,6 +18203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   gameOverPanel: {fileID: 2547759495045945347}
+  gameOverDelay: 4
 --- !u!114 &2039691783
 MonoBehaviour:
   m_ObjectHideFlags: 0

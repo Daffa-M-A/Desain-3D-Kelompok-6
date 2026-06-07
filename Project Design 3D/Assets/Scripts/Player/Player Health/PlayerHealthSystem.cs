@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerHealthSystem : MonoBehaviour
 {
     public static PlayerHealthSystem Instance;
-
+    public static bool IsDead = false;
     public static int Health = 3;
 
     [Header("UI Referensi")]
@@ -19,10 +19,15 @@ public class PlayerHealthSystem : MonoBehaviour
     [Header("Referensi Animasi")]
     public Animator animator;
 
+    [Header("Movement References")]
+    [Tooltip("Drag your player movement script component here")]
+    [SerializeField] private MonoBehaviour playerMovementScript;
+
     void Awake()
     {
         Instance = this;
         Health = 3;
+        IsDead = false; // Reset it back to false whenever the game/level restarts
     }
 
     void Update()
@@ -42,6 +47,11 @@ public class PlayerHealthSystem : MonoBehaviour
     public void TakeDamage()
     {
         if (isInvincible) return;
+        if (PlayerHealingSkill.Instance != null && PlayerHealingSkill.Instance.IsInvincible())
+        {
+            Debug.Log("Damage blocked by Healing Skill Invincibility Frames!");
+            return;
+        }
 
         Health--;
 
@@ -59,6 +69,11 @@ public class PlayerHealthSystem : MonoBehaviour
 
     private void Die()
     {
+        // 1. Disable the movement script so its Update function stops running entirely
+        if (playerMovementScript != null)
+        {
+            playerMovementScript.enabled = false;
+        }
         if (animator != null) animator.SetTrigger("IsDeath");
 
         if (GameManager.Instance != null)

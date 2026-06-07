@@ -879,7 +879,6 @@ MonoBehaviour:
   m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
-  m_Version: 2
   m_TaaSettings:
     m_Quality: 3
     m_FrameInfluence: 0.1
@@ -887,6 +886,7 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
 --- !u!1001 &369140013
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1078,14 +1078,14 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410087039}
   m_Enabled: 1
-  serializedVersion: 11
+  serializedVersion: 12
   m_Type: 1
   m_Color: {r: 0.4745098, g: 0.7411765, b: 0.8509804, a: 1}
   m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
-  m_CookieSize: 10
+  m_CookieSize2D: {x: 10, y: 10}
   m_Shadows:
     m_Type: 2
     m_Resolution: -1
@@ -1162,17 +1162,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Version: 4
   m_UsePipelineSettings: 1
   m_AdditionalLightsShadowResolutionTier: 2
-  m_LightLayerMask: 1
-  m_RenderingLayers: 1
   m_CustomShadowLayers: 0
-  m_ShadowLayerMask: 1
-  m_ShadowRenderingLayers: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1
 --- !u!1001 &421647840
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1802,6 +1808,9 @@ MonoBehaviour:
   laserHorizontalTag: LaserWarningHorizontal
   bulletSpawnerPrefab: {fileID: 5451035046336854393, guid: 955231a6b1956364b9bcb4e7e1bd7da5, type: 3}
   swapLimit: 3
+  missileDelay: 0.5
+  bulletSpawnerCountLevel2: 2
+  bulletSpawnerDelay: 0.5
   spawnRangeX: 8
   spawnPosY: 12
   laserRangeY: 3
@@ -1933,6 +1942,7 @@ MonoBehaviour:
   mainStorage: {fileID: 932978942}
   depositEffect: {fileID: 2139234198}
   powerPerBattery: 90
+  bonusPerBattery: 0.01
   scoreText: {fileID: 435892600}
   score: 0
 --- !u!65 &669062379
@@ -1976,6 +1986,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1997,9 +2009,11 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &669062381
 MeshFilter:
@@ -2729,6 +2743,8 @@ MonoBehaviour:
   currentPower: 1200
   maxPower: 2000
   drainRate: 30
+  powerThresholdTrigger: 1250
+  powerForceValue: 1250
 --- !u!114 &932978943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7632,7 +7648,7 @@ ParticleSystem:
     vectorLabel1_3: W
 --- !u!199 &1142287524
 ParticleSystemRenderer:
-  serializedVersion: 6
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -7651,6 +7667,8 @@ ParticleSystemRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -7673,9 +7691,11 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -7707,7 +7727,6 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
-  m_MaskInteraction: 0
 --- !u!4 &1142287525
 Transform:
   m_ObjectHideFlags: 0
@@ -12466,7 +12485,7 @@ ParticleSystem:
     vectorLabel1_3: W
 --- !u!199 &1152071116
 ParticleSystemRenderer:
-  serializedVersion: 6
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -12485,6 +12504,8 @@ ParticleSystemRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -12507,9 +12528,11 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -12541,7 +12564,6 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
-  m_MaskInteraction: 0
 --- !u!4 &1152071117
 Transform:
   m_ObjectHideFlags: 0
@@ -12672,6 +12694,10 @@ MonoBehaviour:
   powerReceiver: {fileID: 669062378}
   scorePerSecond: 120
   rocketInstantBonus: 100
+  playerHealingSkill: {fileID: 1413217997}
+  energyBurstAmount: 5
+  energyGainCooldown: 1.5
+  energyContinuousPerSecond: 2
 --- !u!1 &1242357013
 GameObject:
   m_ObjectHideFlags: 0
@@ -12906,10 +12932,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1413217987}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -12981,6 +13007,7 @@ MonoBehaviour:
   - {fileID: 665511325}
   iFrameDuration: 3
   animator: {fileID: 1413217998}
+  playerMovementScript: {fileID: 1413217989}
 --- !u!114 &1413217996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13012,7 +13039,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealingSkill
   healAmount: 1
   energyCost: 100
-  currentEnergy: 100
+  maxEnergy: 100
+  invincibilityDuration: 1
+  animationSmoothSpeed: 5
+  currentEnergy: 0
   healAction: {fileID: 6726387401637836817, guid: 251fb58dbc184a745b43e278b6152656, type: 3}
   animator: {fileID: 1413217998}
   healingParticles: {fileID: 1142287523}
@@ -13081,6 +13111,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -13102,9 +13134,11 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1520222549
 MeshFilter:
@@ -14302,6 +14336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   gameOverPanel: {fileID: 2547759495045945347}
+  gameOverDelay: 4
 --- !u!114 &2039691783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14425,7 +14460,7 @@ GameObject:
   m_IsActive: 1
 --- !u!199 &2139234197
 ParticleSystemRenderer:
-  serializedVersion: 6
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -14444,6 +14479,8 @@ ParticleSystemRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -14466,9 +14503,11 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -14500,7 +14539,6 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
-  m_MaskInteraction: 0
 --- !u!198 &2139234198
 ParticleSystem:
   m_ObjectHideFlags: 0
