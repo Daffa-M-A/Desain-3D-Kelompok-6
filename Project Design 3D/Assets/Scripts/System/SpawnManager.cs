@@ -4,7 +4,8 @@ public class SpawnManager : MonoBehaviour
 {
     public BatterySpawner batterySpawner;
     public DangerSpawner dangerSpawner;
-    public float dangerInterval = 3.5f;
+    public float dangerIntervalLevel1 = 3.5f;
+    public float dangerIntervalLevel2 = 2.0f;
 
     private float tickTimer = 0f;
     private int currentCycleSecond = 0;
@@ -13,7 +14,6 @@ public class SpawnManager : MonoBehaviour
 
     void Update()
     {
-        // 1. JAM BATERAI (Siklus Peluang Bertingkat)
         tickTimer += Time.deltaTime;
         if (tickTimer >= 1f)
         {
@@ -22,20 +22,17 @@ public class SpawnManager : MonoBehaviour
 
             if (batterySpawner != null)
             {
-                // Cek apakah baterai berhasil spawn
                 bool hasSpawned = batterySpawner.EvaluateAndSpawn(currentCycleSecond, isFirstCycle);
 
-                // JIKA SPAWN BERHASIL: Reset hitungan kembali ke nol
                 if (hasSpawned)
                 {
                     currentCycleSecond = 0;
                     tickTimer = 0f;
-                    isFirstCycle = false; // Setelah dapat baterai pertama, garansi siklus 1 selesai
+                    isFirstCycle = false; 
                     Debug.Log("Sistem: Baterai muncul, menghitung ulang dari nol.");
                 }
             }
 
-            // Keamanan tambahan: Jika mencapai 8 tanpa spawn (pasti spawn di Evaluator), reset tetap dilakukan
             if (currentCycleSecond >= 8)
             {
                 currentCycleSecond = 0;
@@ -43,15 +40,20 @@ public class SpawnManager : MonoBehaviour
             }
         }
 
-        // 2. JAM BAHAYA (Interval 12-12)
         dangerTimer += Time.deltaTime;
-        if (dangerTimer >= dangerInterval)
+
+        float currentDangerInterval = dangerIntervalLevel1;
+        if (LevelManager.Instance != null && LevelManager.Instance.currentLevel == 2)
+        {
+            currentDangerInterval = 2.0f; 
+        }
+
+        if (dangerTimer >= currentDangerInterval)
         {
             if (dangerSpawner != null)
             {
                 dangerSpawner.SpawnDanger();
             }
-            // Reset timer bahaya ke nol setiap kali objek bahaya muncul
             dangerTimer = 0f;
         }
     }

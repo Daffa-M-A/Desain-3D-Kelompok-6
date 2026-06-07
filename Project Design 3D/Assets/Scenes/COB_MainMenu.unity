@@ -2073,7 +2073,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cebcd165f1c7d45810b24f31f14ab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLevel: 2
   missileTag: Missile
   laserVerticalTag: LaserWarningVertical
   laserHorizontalTag: LaserWarningHorizontal
@@ -2208,6 +2207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PowerSourceScript
   mainStorage: {fileID: 932978942}
+  depositEffect: {fileID: 0}
   powerPerBattery: 90
   scoreText: {fileID: 435892600}
   score: 0

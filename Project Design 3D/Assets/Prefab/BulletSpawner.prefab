@@ -50,6 +50,9 @@ MonoBehaviour:
   spawnerType: 0
   firingRate: 0.2
   maxWaves: 10
-  spinSpeed: 90
   spreadBulletsCount: 3
   spreadAngle: 15
+  spinSpeed: 90
+  spinLayers: 1
+  spinDepth: 2
+  spinDepthDelay: 0.1

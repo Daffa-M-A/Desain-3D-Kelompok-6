@@ -2058,16 +2058,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cebcd165f1c7d45810b24f31f14ab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLevel: 2
   missileTag: Missile
   laserVerticalTag: LaserWarningVertical
   laserHorizontalTag: LaserWarningHorizontal
   bulletSpawnerPrefab: {fileID: 5451035046336854393, guid: 955231a6b1956364b9bcb4e7e1bd7da5, type: 3}
   swapLimit: 3
+  missileDelay: 0.25
   spawnRangeX: 8
   spawnPosY: 12
-  laserRangeY: 3
-  minLaserY: 1
+  laserRangeY: 2.5
+  minLaserY: 1.5
   screenCenterX: -14
   screenCenterY: 9
 --- !u!4 &659301291
@@ -14429,7 +14429,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1862632938
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19630,6 +19630,7 @@ GameObject:
   - component: {fileID: 2039691780}
   - component: {fileID: 2039691781}
   - component: {fileID: 2039691782}
+  - component: {fileID: 2039691783}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -19668,7 +19669,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MissileSpawner
   batterySpawner: {fileID: 1851705650}
   dangerSpawner: {fileID: 659301290}
-  dangerInterval: 3.5
+  dangerIntervalLevel1: 3.5
+  dangerIntervalLevel2: 2
 --- !u!114 &2039691780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19682,7 +19684,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 5187409129493229605, guid: 3e1e56125ced64a46ba3800a539e3698, type: 3}
-  poolSize: 10
+  poolSize: 100
 --- !u!114 &2039691781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19698,10 +19700,10 @@ MonoBehaviour:
   pools:
   - tag: Missile
     prefab: {fileID: 3197149161019064539, guid: 8c5de2ab93e2a114d9bff4a0d2cded40, type: 3}
-    size: 5
+    size: 10
   - tag: Battery
     prefab: {fileID: 9145834548191125763, guid: 8e683405699c25647892dfed7e74461f, type: 3}
-    size: 5
+    size: 10
   - tag: LaserWarningVertical
     prefab: {fileID: 7146070455814129231, guid: 6ea482935c25d71499bdcb115ab6ff30, type: 3}
     size: 5
@@ -19727,6 +19729,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   gameOverPanel: {fileID: 1862632937}
+--- !u!114 &2039691783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2039691776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8a8b59ad57038045baa911f6e4fa8bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelManager
+  currentLevel: 2
 --- !u!1 &2039949755
 GameObject:
   m_ObjectHideFlags: 0

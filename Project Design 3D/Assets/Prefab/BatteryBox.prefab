@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 8898331159493647290}
   - component: {fileID: 687328765915252561}
   - component: {fileID: 3275440447933284987}
+  - component: {fileID: 4117607493404365342}
   m_Layer: 0
   m_Name: BatteryBox
   m_TagString: Catchable
@@ -186,3 +187,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectBattery
   rotationSpeed: 85
+--- !u!114 &4117607493404365342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9145834548191125763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc47deb07660a934f83d8d15d367f3d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CustomGravity
+  gravityMultiplier: 1.5

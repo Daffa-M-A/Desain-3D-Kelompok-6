@@ -53,7 +53,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.5
   m_Height: 50
   m_Direction: 0
   m_Center: {x: 20, y: 0, z: 0}
@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cd3c4bd55c3e6b4081fb41e93e1b2c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectLaser
-  activeDuration: 1
+  activeDuration: 0.5
 --- !u!1 &3127111849124802748
 GameObject:
   m_ObjectHideFlags: 0

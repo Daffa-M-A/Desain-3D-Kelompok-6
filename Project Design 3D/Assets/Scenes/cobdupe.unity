@@ -6000,7 +6000,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cebcd165f1c7d45810b24f31f14ab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLevel: 1
   missileTag: Missile
   laserVerticalTag: LaserWarningVertical
   laserHorizontalTag: LaserWarningHorizontal
@@ -16715,7 +16714,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 0
@@ -18091,6 +18090,7 @@ GameObject:
   - component: {fileID: 2039691780}
   - component: {fileID: 2039691781}
   - component: {fileID: 2039691782}
+  - component: {fileID: 2039691783}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -18129,7 +18129,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MissileSpawner
   batterySpawner: {fileID: 1851705650}
   dangerSpawner: {fileID: 659301290}
-  dangerInterval: 3.5
+  dangerIntervalLevel1: 3.5
+  dangerIntervalLevel2: 2
 --- !u!114 &2039691780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18188,6 +18189,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   gameOverPanel: {fileID: 2547759495045945347}
+--- !u!114 &2039691783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2039691776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8a8b59ad57038045baa911f6e4fa8bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelManager
+  currentLevel: 1
 --- !u!1001 &2054117134
 PrefabInstance:
   m_ObjectHideFlags: 0

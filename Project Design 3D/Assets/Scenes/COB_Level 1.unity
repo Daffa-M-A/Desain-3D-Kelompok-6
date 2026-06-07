@@ -1325,7 +1325,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cebcd165f1c7d45810b24f31f14ab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLevel: 1
   missileTag: Missile
   laserVerticalTag: LaserWarningVertical
   laserHorizontalTag: LaserWarningHorizontal
@@ -1334,7 +1333,7 @@ MonoBehaviour:
   spawnRangeX: 8
   spawnPosY: 12
   laserRangeY: 3
-  minLaserY: 1
+  minLaserY: 2
   screenCenterX: 0
   screenCenterY: 9
 --- !u!4 &659301291
@@ -13284,6 +13283,7 @@ GameObject:
   - component: {fileID: 2039691780}
   - component: {fileID: 2039691781}
   - component: {fileID: 2039691782}
+  - component: {fileID: 2039691783}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -13322,7 +13322,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MissileSpawner
   batterySpawner: {fileID: 1851705650}
   dangerSpawner: {fileID: 659301290}
-  dangerInterval: 3.5
+  dangerIntervalLevel1: 3.5
+  dangerIntervalLevel2: 2
 --- !u!114 &2039691780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13352,10 +13353,10 @@ MonoBehaviour:
   pools:
   - tag: Missile
     prefab: {fileID: 3197149161019064539, guid: 8c5de2ab93e2a114d9bff4a0d2cded40, type: 3}
-    size: 5
+    size: 10
   - tag: Battery
     prefab: {fileID: 9145834548191125763, guid: 8e683405699c25647892dfed7e74461f, type: 3}
-    size: 5
+    size: 10
   - tag: LaserWarningVertical
     prefab: {fileID: 7146070455814129231, guid: 6ea482935c25d71499bdcb115ab6ff30, type: 3}
     size: 5
@@ -13381,6 +13382,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   gameOverPanel: {fileID: 2547759495045945347}
+--- !u!114 &2039691783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2039691776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8a8b59ad57038045baa911f6e4fa8bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelManager
+  currentLevel: 1
 --- !u!1001 &2134137544
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -10,11 +10,8 @@ public class ObjectMissile : MonoBehaviour
 
     private void Update()
     {
-        // Calculate the new Y rotation based on speed and time
-        // (Using minus for right-to-left, or plus for left-to-right)
         float newY = transform.localEulerAngles.y - (rotationSpeed * Time.deltaTime);
 
-        // Force X and Z to stay exactly at 0
         transform.localRotation = Quaternion.Euler(90f, newY, 0f);
     }
 

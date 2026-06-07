@@ -5,21 +5,21 @@ public class DangerSpawner : MonoBehaviour
 {
     public enum DangerType { Missile, BulletHell, Laser }
 
-    [Header("Pengaturan Level")]
-    [Range(1, 2)] public int currentLevel = 1;
-
     [Header("Referensi Pool")]
     public string missileTag = "Missile";
     public string laserVerticalTag = "LaserWarningVertical";
     public string laserHorizontalTag = "LaserWarningHorizontal";
 
     [Header("Referensi Bullet Hell")]
-    public GameObject bulletSpawnerPrefab; 
+    public GameObject bulletSpawnerPrefab;
 
     [Header("Pengaturan Siklus")]
     public int swapLimit = 12;
     private int dangerCounter = 0;
     private DangerType currentDangerMode = DangerType.Missile;
+
+    [Header("Pengaturan Missile")]
+    public float missileDelay = 0.5f;
 
     [Header("Pengaturan Area")]
     public float spawnRangeX = 8f;
@@ -55,7 +55,12 @@ public class DangerSpawner : MonoBehaviour
 
     private void SpawnMissile()
     {
-        int missileCount = (currentLevel >= 2) ? 2 : 1;
+        StartCoroutine(SpawnMissileRoutine());
+    }
+
+    private System.Collections.IEnumerator SpawnMissileRoutine()
+    {
+        int missileCount = (LevelManager.Instance.currentLevel >= 2) ? 2 : 1;
 
         for (int i = 0; i < missileCount; i++)
         {
@@ -63,6 +68,11 @@ public class DangerSpawner : MonoBehaviour
             Vector3 spawnPos = new Vector3(randomX, spawnPosY, 0f);
 
             PoolManager.Instance.SpawnFromPool(missileTag, spawnPos, Quaternion.identity);
+
+            if (i < missileCount - 1)
+            {
+                yield return new WaitForSeconds(missileDelay);
+            }
         }
     }
 
@@ -74,20 +84,17 @@ public class DangerSpawner : MonoBehaviour
             Vector3 spawnPos = new Vector3(randomX, spawnPosY, 0f);
 
             GameObject spawnerObj = Instantiate(bulletSpawnerPrefab, spawnPos, bulletSpawnerPrefab.transform.rotation);
-
             BulletSpawner spawnerScript = spawnerObj.GetComponent<BulletSpawner>();
 
             if (spawnerScript != null)
             {
-                if (currentLevel == 1)
+                if (LevelManager.Instance.currentLevel == 1)
                 {
-                    spawnerScript.spawnerType = BulletSpawner.SpawnerType.Spread; 
-                    Debug.Log("Spawn Bullet Hell: Mode SPREAD (Level 1)");
+                    spawnerScript.spawnerType = BulletSpawner.SpawnerType.Spread;
                 }
-                else if (currentLevel >= 2)
+                else if (LevelManager.Instance.currentLevel >= 2)
                 {
                     spawnerScript.spawnerType = BulletSpawner.SpawnerType.Spin;
-                    Debug.Log("Spawn Bullet Hell: Mode SPIN (Level 2)");
                 }
             }
         }
@@ -96,7 +103,8 @@ public class DangerSpawner : MonoBehaviour
     private void SpawnLaser()
     {
         bool isHorizontal = false;
-        if (currentLevel >= 2)
+
+        if (LevelManager.Instance.currentLevel >= 2)
         {
             isHorizontal = Random.value > 0.5f;
         }

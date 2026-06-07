@@ -1,18 +1,33 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.ProBuilder;
+
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 public class MainMenu : MonoBehaviour
 {
-    public void LoadLevel(string level)
+    public void LoadLevel(string sceneName)
     {
-        SceneManager.LoadScene(level);
+        int levelPilihan = 1;
+
+        if (sceneName == "COB_Level 2")
+        {
+            levelPilihan = 2;
+        }
+
+        PlayerPrefs.SetInt("LevelTerpilih", levelPilihan);
+        PlayerPrefs.Save();
+
+        SceneManager.LoadScene(sceneName);
     }
 
     public void ExitGame()
     {
-        Application.Quit();// Keluar dari aplikasi saat health mencapai 0
-        EditorApplication.isPlaying = false; // Hanya untuk editor, agar tidak keluar dari aplikasi saat testing
+        Application.Quit();
+
+#if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+#endif
     }
 }
