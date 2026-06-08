@@ -59,12 +59,26 @@ public class PowerStorage : MonoBehaviour
         Debug.Log($"Daya ditambahkan! Current Power: {(int)currentPower}");
     }
 
-    private void TriggerGameOver()
+private void TriggerGameOver()
     {
+        if (isGameOver) return; // Prevent multiple triggers
         isGameOver = true;
-        Application.Quit(); // Keluar dari aplikasi saat health mencapai 0
-        EditorApplication.isPlaying = false; // Hanya untuk editor, agar tidak keluar dari aplikasi saat testing
-        Debug.LogError("GAME OVER! Power Source kehabisan daya.");
+
+        Debug.LogWarning("GAME OVER! Power Source kehabisan daya.");
+
+        // Send Game Over trigger to the central GameManager WITHOUT delay
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.TriggerGameOver(false); // <--- Passing 'false' skips the delay!
+        }
+        else
+        {
+            Debug.LogError("GameManager.Instance tidak ditemukan di Scene!");
+            Application.Quit(); 
+            #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false; 
+            #endif
+        }
     }
 
     // Untuk dibaca oleh UI
@@ -73,4 +87,6 @@ public class PowerStorage : MonoBehaviour
         // Keeps percentage calculation matching your current threshold limit
         return currentPower / powerThresholdTrigger;
     }
+
+    
 }

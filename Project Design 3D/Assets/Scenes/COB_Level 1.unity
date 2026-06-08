@@ -515,7 +515,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 168808465}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2039691782}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: LoadMainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &168808465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -636,7 +648,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 286604483}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2039691782}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: RetryGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &286604483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14000,7 +14024,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1805660721}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2039691782}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: ResumeGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1805660721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14507,7 +14543,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   gameOverPanel: {fileID: 2547759495045945347}
+  pauseMenuPanel: {fileID: 107372087}
   gameOverDelay: 3.6
+  pauseActionRef: {fileID: -1279238330919430974, guid: 251fb58dbc184a745b43e278b6152656, type: 3}
 --- !u!114 &2039691783
 MonoBehaviour:
   m_ObjectHideFlags: 0
