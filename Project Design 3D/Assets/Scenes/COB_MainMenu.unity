@@ -1886,10 +1886,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -2078,6 +2078,9 @@ MonoBehaviour:
   laserHorizontalTag: LaserWarningHorizontal
   bulletSpawnerPrefab: {fileID: 0}
   swapLimit: 12
+  missileDelay: 0.5
+  bulletSpawnerCountLevel2: 2
+  bulletSpawnerDelay: 0.5
   spawnRangeX: 8
   spawnPosY: 10
   laserRangeY: 3
@@ -2209,6 +2212,7 @@ MonoBehaviour:
   mainStorage: {fileID: 932978942}
   depositEffect: {fileID: 0}
   powerPerBattery: 90
+  bonusPerBattery: 0.01
   scoreText: {fileID: 435892600}
   score: 0
 --- !u!65 &669062379
@@ -3211,6 +3215,8 @@ MonoBehaviour:
   currentPower: 2000
   maxPower: 2000
   drainRate: 30
+  powerThresholdTrigger: 1200
+  powerForceValue: 1200
 --- !u!114 &932978943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4456,6 +4462,7 @@ MonoBehaviour:
   - {fileID: 665511325}
   iFrameDuration: 3
   animator: {fileID: 0}
+  playerMovementScript: {fileID: 0}
 --- !u!1 &1509609591
 GameObject:
   m_ObjectHideFlags: 0
@@ -5489,7 +5496,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MissileSpawner
   batterySpawner: {fileID: 1851705650}
   dangerSpawner: {fileID: 659301290}
-  dangerInterval: 3.5
+  dangerIntervalLevel1: 3.5
+  dangerIntervalLevel2: 2
 --- !u!114 &2039691780
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,12 +1,15 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-// 1. Import the Input System namespace
 using UnityEngine.InputSystem; 
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+
+    [Header("Turbo Integration")]
+    [Tooltip("Tarik GameObject yang memiliki script TurboModeManager ke sini")]
+    [SerializeField] private TurboModeManager turboManager;
 
     [Header("UI Panels")]
     [Tooltip("Masukkan Panel Game Over dari Canvas ke sini")]
@@ -19,7 +22,6 @@ public class GameManager : MonoBehaviour
     [Tooltip("Durasi jeda (dalam detik) untuk memberi waktu animasi tumbang/collapse player sebelum UI muncul.")]
     [SerializeField] private float gameOverDelay = 2.0f;
 
-    // 2. CREATE THE INPUT ACTION REFERENCE
     [Header("Input System References")]
     [Tooltip("Drag your Pause Input Action reference from your Input Action Asset here")]
     [SerializeField] private InputActionReference pauseActionRef;
@@ -27,23 +29,25 @@ public class GameManager : MonoBehaviour
     private bool isGameOverTriggered = false;
     private bool isPaused = false;
 
-    // Property so other scripts can check if the game is already over
     public bool IsGameOverTriggered => isGameOverTriggered;
 
     void Awake()
     {
         Instance = this;
-        Time.timeScale = 1f;
+        
+        // If turboManager isn't assigned via inspector, try to find it automatically
+        if (turboManager == null)
+        {
+            turboManager = FindFirstObjectByType<TurboModeManager>();
+        }
     }
 
     void Start()
     {
-        // Ensure all UI panels are hidden at the start of the level
         if (gameOverPanel != null) gameOverPanel.SetActive(false);
         if (pauseMenuPanel != null) pauseMenuPanel.SetActive(false);
     }
 
-    // 3. SUBSCRIBE TO THE ACTION EVENTS
     private void OnEnable()
     {
         if (pauseActionRef != null)
@@ -62,10 +66,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // 4. CALLBACK MANUALLY TRIGGERED BY EVENT
     private void OnPauseInputTriggered(InputAction.CallbackContext context)
     {
-        // Do not allow pausing if the game is already over!
         if (isGameOverTriggered) return;
 
         if (isPaused)
@@ -88,7 +90,16 @@ public class GameManager : MonoBehaviour
             pauseMenuPanel.SetActive(true);
         }
         
-        Time.timeScale = 0f; // Freeze game logic and movement
+        // FIXED: Route pause through TurboManager so it won't override it
+        if (turboManager != null)
+        {
+            turboManager.PauseGame(true);
+        }
+        else
+        {
+            Time.timeScale = 0f; 
+        }
+
         Debug.Log("GameManager: Game Paused.");
     }
 
@@ -100,7 +111,16 @@ public class GameManager : MonoBehaviour
             pauseMenuPanel.SetActive(false);
         }
         
-        Time.timeScale = 1f; // Unfreeze game logic
+        // FIXED: Route resume through TurboManager to return to your current turbo speed
+        if (turboManager != null)
+        {
+            turboManager.PauseGame(false);
+        }
+        else
+        {
+            Time.timeScale = 1f; 
+        }
+
         Debug.Log("GameManager: Game Resumed.");
     }
 
@@ -108,19 +128,16 @@ public class GameManager : MonoBehaviour
 
     #region GAME OVER LOGIC
 
-    // OVERLOAD: Defaults to true (with delay) if no parameter is sent
     public void TriggerGameOver()
     {
         TriggerGameOver(true);
     }
 
-    // Main Game Over trigger (PowerStorage passes false to skip delay)
     public void TriggerGameOver(bool useDelay)
     {
         if (isGameOverTriggered) return;
         isGameOverTriggered = true;
 
-        // If pause menu is open when game over happens, force hide it
         if (pauseMenuPanel != null) pauseMenuPanel.SetActive(false);
 
         if (useDelay)
@@ -137,7 +154,8 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator GameOverSequenceRoutine()
     {
-        yield return new WaitForSeconds(gameOverDelay);
+        // FIXED: Changed to Realtime so running at 150% speed doesn't cut the animation short!
+        yield return new WaitForSecondsRealtime(gameOverDelay);
         ExecuteInstantGameOver();
     }
 
@@ -148,7 +166,16 @@ public class GameManager : MonoBehaviour
             gameOverPanel.SetActive(true);
         }
 
-        Time.timeScale = 0f; // Freeze game entirely
+        // FIXED: Route freeze through TurboManager so turbo mode halts execution completely
+        if (turboManager != null)
+        {
+            turboManager.PauseGame(true);
+        }
+        else
+        {
+            Time.timeScale = 0f; 
+        }
+
         Debug.Log("GameManager: UI Game Over Aktif dan waktu dihentikan.");
     }
 
@@ -158,13 +185,18 @@ public class GameManager : MonoBehaviour
 
     public void RetryGame()
     {
+        // Reset the system via turbo manager if it exists
+        if (turboManager != null) turboManager.PauseGame(false);
         Time.timeScale = 1f;
+        
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void LoadMainMenu()
     {
+        if (turboManager != null) turboManager.PauseGame(false);
         Time.timeScale = 1f;
+        
         SceneManager.LoadScene("COB_MainMenu");
     }
 

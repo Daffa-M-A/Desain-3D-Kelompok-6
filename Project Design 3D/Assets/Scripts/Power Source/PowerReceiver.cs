@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using System.Collections.Generic; // Required for Lists
 
 public class PowerReceiver : MonoBehaviour
 {
@@ -18,9 +19,12 @@ public class PowerReceiver : MonoBehaviour
     [Tooltip("Bonus percentage scaling factor per battery held (0.01 = 1%).")]
     [SerializeField] private float bonusPerBattery = 0.01f;
 
-    public TextMeshProUGUI scoreText; 
+    // CHANGED: This is now a list! You can drag multiple TextMeshPro objects here.
+    [Header("UI Text Elements")]
+    [Tooltip("Tarik semua komponen TextMeshPro yang ingin diupdate skornya ke sini (Gameplay UI, Game Over UI, dll)")]
+    public List<TextMeshProUGUI> scoreTexts = new List<TextMeshProUGUI>(); 
     
-    // Float internally for exact percentage calculations
+    // Kept as a simple float so your NearMissZone doesn't break!
     public float score = 0f; 
 
     private bool playerInRange = false;
@@ -39,10 +43,13 @@ public class PowerReceiver : MonoBehaviour
 
     void Update()
     {
-        // Update score UI as clean integer
-        if (scoreText != null)
+        // FIXED: Loop through all assigned text elements and update every single one
+        for (int i = 0; i < scoreTexts.Count; i++)
         {
-            scoreText.text = "Score: " + Mathf.FloorToInt(score);
+            if (scoreTexts[i] != null)
+            {
+                scoreTexts[i].text = "Score: " + Mathf.FloorToInt(score);
+            }
         }
 
         if (Keyboard.current == null) return;
